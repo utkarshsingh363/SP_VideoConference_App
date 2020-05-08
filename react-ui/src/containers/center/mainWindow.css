@@ -1,0 +1,51 @@
+.main-window{
+    height:680px;
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(10,1fr);
+    /* grid-template-rows: 631px 57px; */
+}
+
+.buttons{
+    grid-column: 1/-1;
+    grid-row-start: 10;
+}
+
+
+.videoScreen{
+    display:grid;
+    background-color:grey;
+    grid-column: 1/ -1;
+    grid-row: 1 / -2;
+} 
+
+
+.videoScreen1{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
+
+.chatScreen{
+    grid-column: 1 / span 2;
+    grid-row: 1 / -1;
+    background-color:grey;
+}
+
+  .videoBox{
+    background-color:black;
+    /* width: 100%;
+    height:90%; */
+    grid-column: 3 / -1;
+    grid-row: 1 / -1;
+  }
+
+
+  .videoBoxFull{
+    background-color:black;
+    /* width: 100%;
+    height:90%; */
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;  
+  }
+
