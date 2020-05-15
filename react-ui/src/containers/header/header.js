@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -34,9 +35,9 @@ export default function ButtonAppBar() {
             SABCONF
           </Typography>
           
-          <Button color="inherit">SCHEDULE MEETING</Button>
-          <Button color="inherit">JOIN ROOM</Button>
-          <Button color="inherit">CREATE ROOM</Button>
+          <Button color="inherit" href='/schedulemeeting' >SCHEDULE MEETING</Button>
+          <Button color="inherit" href='/joinroom'>JOIN ROOM</Button>
+          <Button color="inherit" href='/createroom'>CREATE ROOM</Button>
           <Button color="inherit">LOGIN</Button>
         </Toolbar>
       </AppBar>
