@@ -1,0 +1,18 @@
+.chatHead{
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 450px 50px;
+    margin: 5px;
+}
+
+.chatMain{
+    display: 'flex';
+}
+
+.chatFoot{
+    align-items: center;
+    /* align-content: center; */
+    display:grid;
+    grid-template-columns: 26px auto 28px;
+    grid-gap: 5px;
+}
