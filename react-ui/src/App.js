@@ -2,8 +2,8 @@ import React,{Component} from 'react';
 import './App.css';
 import BackToTop from './containers/header/header'
 
-import MainWindow from './containers/center/mainWindow'
-import CreateRoom from './containers/center/CreateRoom/CreateRoom'
+import MainWindow from './routes/LaunchConf/mainWindow'
+import CreateRoom from './routes/CreateRoom/CreateRoom'
 import JoinRoom from './routes/JoinRoom/JoinRoom'
 import ScheduleMeeting from './routes/Schedule/ScheduleMeeting'
 
@@ -23,7 +23,7 @@ class App extends Component {
       <div className="layout-center">
         <Switch>
           <Route path ='/' exact component={Root}/>
-          <Route path ='/launchconf' exact component={MainWindow}/>
+          <Route path ='/launchconf/:roomID'  component={MainWindow}/>
           <Route path ='/createroom' exact component={CreateRoom}/>
           <Route path ='/joinroom' exact component={JoinRoom}/>
           <Route path ='/schedulemeeting' exact component={ScheduleMeeting}/>
