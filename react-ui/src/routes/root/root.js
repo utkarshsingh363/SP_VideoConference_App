@@ -15,7 +15,7 @@ import NewRoomForm from '../../components/root/NewRoomForm'
         render(){
             return(
                 <div className="root-page">
-                    <RoomList/>
+                    {/* <RoomList/> */}
                     <MessagageList/>
                     <SendMessageForm/>
                     

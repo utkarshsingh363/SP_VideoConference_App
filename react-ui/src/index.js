@@ -7,6 +7,14 @@ import LoginSignUp from './routes/LoginSignUp/LoginSignUp'
 
 import {BrowserRouter} from 'react-router-dom'
 
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
 const app=(
   <BrowserRouter>
     <React.StrictMode>
@@ -14,7 +22,7 @@ const app=(
     </React.StrictMode>
   </BrowserRouter>
 )
-ReactDOM.render(app,document.getElementById('root'));
+ReactDOM.render(app ,document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
