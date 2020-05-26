@@ -17,10 +17,11 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ProfileWindow from "C:/Users/Utkarsh/Desktop/SP_VideoConf_JITSI_CORE/react-ui/src/components/ProfileWindow/ProfileWindow";
-import OrganizationWindow from "C:/Users/Utkarsh/Desktop/SP_VideoConf_JITSI_CORE/react-ui/src/components/OrganizationWindow/OrganizationWindow";
-import SubgroupWindow from "C:/Users/Utkarsh/Desktop/SP_VideoConf_JITSI_CORE/react-ui/src/components/SubgroupWindow/SubgroupWindow";
-import Backdrop from "C:/Users/Utkarsh/Desktop/SP_VideoConf_JITSI_CORE/react-ui/src/components/Backdrop/Backdrop";
+
+import ProfileWindow from "../../components/ProfileWindow/ProfileWindow";
+import OrganizationWindow from "../../components/OrganizationWindow/OrganizationWindow";
+import SubgroupWindow from "../../components/SubgroupWindow/SubgroupWindow";
+import Backdrop from "../../components/Backdrop/Backdrop";
 import Root from '../root/root';
 
 const drawerWidth = 300;
@@ -58,7 +59,8 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    
   },
   drawerHeader: {
     display: "flex",
@@ -132,6 +134,11 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       color: "orange"
     }
+  },
+  toolButtons:{
+    marginLeft:"auto",
+    display:"inline-block",
+  
   }
 }));
 
@@ -200,15 +207,20 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.heading} variant="h6" noWrap>
-            SPApp
+          <Typography className={classes.heading} variant="h6" >
+            SabMeets
           </Typography>
-          <Button color="inherit" href='/schedulemeeting' >SCHEDULE MEETING</Button>
-          <Button color="inherit" href='/joinroom'>JOIN ROOM</Button>
-          <Button color="inherit" href='/createroom'>CREATE ROOM</Button>
-          <Button color="inherit">LOGIN</Button>
+          <div className={classes.toolButtons}>
+         
+          <Button color="inherit"  href='/schedulemeeting' className={classes.allB  } >Schedule </Button>
+          <Button color="inherit"  href='/schedulemeeting' className={classes.allB  } >Schedule </Button>
+          <Button color="inherit"  href='/joinroom'>Join</Button>
+          <Button color="inherit"  href='/createroom'>Create</Button>
+          <Button color="inherit" >LOGIN</Button>
+          </div>
         </Toolbar>
       </AppBar>
+      
       <Drawer
         className={classes.drawer}
         variant="persistent"

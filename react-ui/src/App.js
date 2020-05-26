@@ -34,11 +34,11 @@ class App extends Component {
           <CreateRoom/>
         </Switch>
       </div> */}
-
+      
       <Switch>
           {/* <Route path ='/' exact component={Root}/> */}
           <Route path ='/' exact component={Merged}/>
-          <Route path ='/launchconf' exact component={MainWindow}/>
+          <Route path ='/launchconf'  component={MainWindow}/>
           <Route path ='/createroom' exact component={CreateRoom}/>
           <Route path ='/joinroom' exact component={JoinRoom}/>
           <Route path ='/schedulemeeting' exact component={ScheduleMeeting}/>
@@ -53,3 +53,4 @@ class App extends Component {
 }
 
 export default App;
+  

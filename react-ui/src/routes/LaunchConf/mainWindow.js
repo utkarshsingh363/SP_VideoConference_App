@@ -21,8 +21,10 @@ import ChatBox from '../../components/ChatBox/ChatBox'
  class MainWindow extends Component{
     constructor(props){
          super(props)
-
      }
+
+
+
 
      state={
         isMuted:false,
@@ -32,6 +34,10 @@ import ChatBox from '../../components/ChatBox/ChatBox'
         chatOn:false,
         screenShared:false
       }
+
+
+
+
 
 
      toggleAudio = () => {
@@ -89,6 +95,10 @@ import ChatBox from '../../components/ChatBox/ChatBox'
               <div className='chatScreen'>
               </div>
               <div class='videoBoxFull'>
+                
+                <VideoWindow/>
+
+                
                 <p>This Window for Video</p>
               </div>
             </div>

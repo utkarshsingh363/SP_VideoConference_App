@@ -12,7 +12,76 @@ const DUMMY_DATA = [
     {
         senderId: 'ayush',
         text: 'Good to hear! I am great as well'
-    }
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+     {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    {
+        senderId: 'ayush',
+        text: 'Good to hear! I am great as well'
+    },
+    
 ]
 
 class MessageList extends React.Component {
