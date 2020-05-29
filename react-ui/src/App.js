@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-// import './App.css';
+import './App.css';
 import BackToTop from './containers/header/header'
 
 import MainWindow from './routes/LaunchConf/mainWindow'

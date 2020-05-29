@@ -1,12 +1,7 @@
-.app{
-    background-color: black;
+.App{
+    background-color:white;
 }
 
-.layout-header{
-    display: block;
-
-}
-.layout-center{
-    display:block;
-    position: relative;
+html{
+    background-color:white;
 }
