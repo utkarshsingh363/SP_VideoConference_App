@@ -1,28 +1,18 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Button from '@material-ui/core/Button';
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
+
+//Core Imports
+import {Drawer, CssBaseline, AppBar,Button,Toolbar,Typography,Divider,IconButton, Grid,ButtonGroup }from "@material-ui/core";
+
+//Icon Import
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import Avatar from "@material-ui/core/Avatar";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-import ProfileWindow from "../../components/ProfileWindow/ProfileWindow";
-import OrganizationWindow from "../../components/OrganizationWindow/OrganizationWindow";
-import SubgroupWindow from "../../components/SubgroupWindow/SubgroupWindow";
-import Backdrop from "../../components/Backdrop/Backdrop";
-import Root from '../root/root';
+//Component Import
+import Root from "../root/root";
+import DrawerView from '../../components/DrawerView/DrawerView'
 
 const drawerWidth = 300;
 
@@ -46,9 +36,9 @@ const useStyles = makeStyles(theme => ({
     })
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
-  heading:{
+  heading: {
     marginRight: theme.spacing(110)
   },
   hide: {
@@ -59,8 +49,7 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth,
-    
+    width: drawerWidth
   },
   drawerHeader: {
     display: "flex",
@@ -68,7 +57,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    height:'64px'
   },
   content: {
     flexGrow: 1,
@@ -99,15 +89,11 @@ const useStyles = makeStyles(theme => ({
     display: "grid",
     gridTemplateColumns: "80px auto"
   },
-  profileInfo: {
-    marginLeft: "15px"
-    // width:"50px"
-  },
-  organizationItem: {
-    display: "grid",
-    gridTemplateColumns: "auto 30px",
-    alignItems: "center",
-    margin: "5px"
+  top:{
+    height: '64px',
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center'
   },
   paper: {
     padding: theme.spacing(2),
@@ -118,67 +104,25 @@ const useStyles = makeStyles(theme => ({
       color: "black"
     }
   },
-  directmessageItems: {
-    display: "grid",
-    gridTemplateColumns: "40px 45px auto 30px",
-    alignItems: "center",
-    margin: "5px",
-    color: theme.palette.text.secondary,
-    "&:hover": {
-      backgroundColor: "grey",
-      color: "black"
-    }
-  },
-  vertIcon: {
-    color: "black",
-    "&:hover": {
-      color: "orange"
-    }
-  },
-  toolButtons:{
-    marginLeft:"auto",
-    display:"inline-block",
-  
-  }
 }));
+
+
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [openProfile, setProfile] = React.useState(false);
-  const [openOrganization, setOrganization] = React.useState(false);
-  const [openSubgroup, setSubgroup] = React.useState(false);
+  const [drawerView, setDrawerView] = React.useState('admin');
 
-  const profileWindowOpen = () => {
-    setProfile(true);
-    console.log(openProfile);
-  };
+  const selectDrawerAdminView=()=>{
+    setDrawerView('admin')
+    console.log(drawerView)
+  }
 
-  const profileWindowClose = () => {
-    setProfile(false);
-    console.log(openProfile);
-  };
-
-  const organizationWindowOpen = () => {
-    setOrganization(true);
-    console.log(openOrganization);
-  };
-
-  const organizationWindowClose = () => {
-    setOrganization(false);
-    console.log(openOrganization);
-  };
-
-  const subgroupWindowOpen = () => {
-    setSubgroup(true);
-    console.log(openSubgroup);
-  };
-
-  const subgroupWindowClose = () => {
-    setSubgroup(false);
-    console.log(openSubgroup);
-  };
+  const selectDrawerSettingView=()=>{
+    setDrawerView('setting')
+    console.log(drawerView)
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -191,6 +135,9 @@ export default function PersistentDrawerLeft() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+
+      {/* // AppBar  */}
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -207,20 +154,37 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.heading} variant="h6" >
+          <Typography className={classes.heading} variant="h6">
             SabMeets
           </Typography>
           <div className={classes.toolButtons}>
-         
-          <Button color="inherit"  href='/schedulemeeting' className={classes.allB  } >Schedule </Button>
-          <Button color="inherit"  href='/schedulemeeting' className={classes.allB  } >Schedule </Button>
-          <Button color="inherit"  href='/joinroom'>Join</Button>
-          <Button color="inherit"  href='/createroom'>Create</Button>
-          <Button color="inherit" >LOGIN</Button>
+            <Button
+              color="inherit"
+              href="/schedulemeeting"
+              className={classes.allB}
+            >
+              Schedule{" "}
+            </Button>
+            <Button
+              color="inherit"
+              href="/schedulemeeting"
+              className={classes.allB}
+            >
+              Schedule{" "}
+            </Button>
+            <Button color="inherit" href="/joinroom">
+              Join
+            </Button>
+            <Button color="inherit" href="/createroom">
+              Create
+            </Button>
+            <Button color="inherit">LOGIN</Button>
           </div>
         </Toolbar>
       </AppBar>
-      
+
+      {/* Drawer (Split into 2 Views ADMIN and SETTINGS) inside DrawerView */}
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -230,141 +194,44 @@ export default function PersistentDrawerLeft() {
           paper: classes.drawerPaper
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
         <Divider />
-        <div className={classes.profileBox}>
-          <Avatar className={classes.large} onClick={profileWindowOpen} />
-          <ProfileWindow show={openProfile} closed={profileWindowClose} />
-          <Backdrop show={openProfile} />
-          <div className={classes.profileInfo}>
-            <p>Utkarsh</p>
-            <p>utkarshsingh363@gmail.com</p>
-            <FiberManualRecordIcon style={{ color: "green" }} />
-          </div>
-        </div>
+
+      <div className={classes.top}>
+        <Grid
+          container
+          xs={12}
+          style={{ textAlign: "center" }}
+          alignItems="center"
+          height='64px'
+          >
+          
+          <Grid item xs={12}>
+            <ButtonGroup 
+            disableElevation 
+            variant="contained" 
+            color="primary"
+            >
+              <Button onClick={selectDrawerAdminView}>Admin</Button>
+              <Button onClick={selectDrawerSettingView}>Settings</Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </div>
+
         <Divider />
-        <div className={classes.organizationBox}>
-          <h4 style={{ marginLeft: "15px" }}>Organizations</h4>
-          <div className={classes.organizationItem}>
-            <Grid item xm={6} xm={6}>
-              <Paper
-                className={classes.paper}
-                style={{ marginLeft: "15px" }}
-                onClick={organizationWindowOpen}
-              >
-                SabPaisa
-              </Paper>
-              <OrganizationWindow
-                show={openOrganization}
-                closed={organizationWindowClose}
-              />
-              <Backdrop show={openOrganization} />
-            </Grid>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <div className={classes.organizationItem}>
-            <Grid item xm={6} xm={6}>
-              <Paper
-                className={classes.paper}
-                style={{ marginLeft: "15px" }}
-                onClick={organizationWindowOpen}
-              >
-                SabLends
-              </Paper>
-              <OrganizationWindow
-                show={openOrganization}
-                closed={organizationWindowClose}
-              />
-              <Backdrop show={openOrganization} />
-            </Grid>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <Divider />
-          <div className={classes.subgroupBox}>
-            <h4 style={{ marginLeft: "15px" }}>Subgroups</h4>
-          </div>
-          <div className={classes.organizationItem}>
-            <Grid item xm={6} xm={6}>
-              <Paper
-                className={classes.paper}
-                style={{ marginLeft: "15px" }}
-                onClick={subgroupWindowOpen}
-              >
-                Technology
-              </Paper>
-              <SubgroupWindow
-                show={openSubgroup}
-                closed={subgroupWindowClose}
-              />
-              <Backdrop show={openSubgroup} />
-            </Grid>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <div className={classes.organizationItem}>
-            <Grid item xm={6} xm={6}>
-              <Paper
-                className={classes.paper}
-                style={{ marginLeft: "15px" }}
-                onClick={subgroupWindowOpen}
-              >
-                Product
-              </Paper>
-              <SubgroupWindow
-                show={openSubgroup}
-                closed={subgroupWindowClose}
-              />
-              <Backdrop show={openSubgroup} />
-            </Grid>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <div className={classes.organizationItem}>
-            <Grid item xm={6} xm={6}>
-              <Paper
-                className={classes.paper}
-                style={{ marginLeft: "15px" }}
-                onClick={subgroupWindowOpen}
-              >
-                Support
-              </Paper>
-              <SubgroupWindow
-                show={openSubgroup}
-                closed={subgroupWindowClose}
-              />
-              <Backdrop show={openSubgroup} />
-            </Grid>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <Divider />
-          <div className={classes.directmessageBox}>
-            <h4 style={{ marginLeft: "15px" }}>Direct Messages</h4>
-          </div>
-          <div className={classes.directmessageItems}>
-            <Avatar className={classes.small} />
-            <FiberManualRecordIcon style={{ color: "yellow" }} />
-            <p>Ayush Rawat</p>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <div className={classes.directmessageItems}>
-            <Avatar className={classes.small} />
-            <FiberManualRecordIcon style={{ color: "red" }} />
-            <p>Ramya Jena</p>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-          <div className={classes.directmessageItems}>
-            <Avatar className={classes.small} />
-            <FiberManualRecordIcon style={{ color: "yellow" }} />
-            <p>Shreyansh</p>
-            <MoreVertIcon className={classes.vertIcon} />
-          </div>
-        </div>
+
+        <DrawerView drawerview={drawerView} />
+        {/* </div> */}
+        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
