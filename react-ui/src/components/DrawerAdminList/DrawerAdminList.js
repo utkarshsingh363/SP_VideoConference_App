@@ -17,9 +17,11 @@ import CheckIcon from '@material-ui/icons/Check';
 import ProfileWindow from "../../components/ProfileWindow/ProfileWindow";
 import OrganizationWindow from "../../components/OrganizationWindow/OrganizationWindow";
 import SubgroupWindow from "../../components/SubgroupWindow/SubgroupWindow";
+
 import DMWindow from '../../components/DirectMessageWindow/DirectMessageWindow'
 import Backdrop from "../../components/Backdrop/Backdrop";
 import { red } from '@material-ui/core/colors';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,7 +41,9 @@ export default function DrawerAdminList(){
     const [openProfile, setProfile] = React.useState(false);
     const [openOrganization, setOrganization] = React.useState(false);
     const [openSubgroup, setSubgroup] = React.useState(false);
+
     const [openDM, setDM] = React.useState(false);
+
     const [openOrganizationTab, setOrganizationTab] = React.useState(false);
     const [openSubgroupTab, setSubgroupTab] = React.useState(false);
     const [openDMTab, setDMTab] = React.useState(false);
@@ -69,6 +73,7 @@ export default function DrawerAdminList(){
         console.log(openOrganization);
       };
 
+
       const dmWindowOpen = () => {
         setDM(true);
         console.log(openDM);
@@ -78,6 +83,7 @@ export default function DrawerAdminList(){
         setDM(false);
         console.log(openDM);
       };
+
     
       const subgroupWindowOpen = () => {
         setSubgroup(true);
@@ -130,7 +136,7 @@ export default function DrawerAdminList(){
                 <ListItemText
                   primary="Profile"
                   style={{ textAlign: "center" }}
-                  
+
                 />
               </Grid>
               <Grid item xs={1}>
@@ -142,7 +148,9 @@ export default function DrawerAdminList(){
           </ListItem>
           <Collapse in={openProfileTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+
               <ListItem button className={classes.nested} >
+
                 <Grid container xs={12} 
                 style={{ alignItems:'center'}}
                 justify='flex-start' >
@@ -205,16 +213,19 @@ export default function DrawerAdminList(){
    
         <Divider />
 
+
         {/* Admin Group Tab */}
 
         <List>
           <ListItem button onClick={handleAdminGrouptTab}>
+
             <Grid container xs={12}>
               <Grid item xs={1}>
                 {/* {openSubgroupTab ? <ExpandLess /> : <ExpandMore />} */}
               </Grid>
               <Grid item xs={10}>
                 <ListItemText
+
                   primary="Admin Groups"
                   style={{ textAlign: "center" }}
                 />
@@ -257,6 +268,7 @@ export default function DrawerAdminList(){
               <Grid item xs={10}>
                 <ListItemText
                   primary="Private Groups"
+
                   style={{ textAlign: "center" }}
                 />
               </Grid>
@@ -270,6 +282,7 @@ export default function DrawerAdminList(){
               </Grid>
             </Grid>
           </ListItem>
+
           <Collapse in={openPrivateGroupTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
@@ -285,6 +298,7 @@ export default function DrawerAdminList(){
             </Collapse>
           </List>
 
+
         <Divider />
 
        {/* Drirect Message Tab */}
@@ -298,9 +312,11 @@ export default function DrawerAdminList(){
                 <ListItemText primary="Direct Messages" />
               </Grid>
               <Grid item xs={1}>
+
                 <AddIcon onClick={dmWindowOpen}/>
                 <DMWindow show={openDM} closed={dmWindowClose} />
                 <Backdrop show={openDM} />
+
               </Grid>
             </Grid>
           </ListItem>
@@ -386,7 +402,9 @@ export default function DrawerAdminList(){
                 <ListItemText primary="Requests" />
               </Grid>
               <Grid item xs={1}>
+
                 {/* <AddIcon /> */}
+
               </Grid>
             </Grid>
           </ListItem>

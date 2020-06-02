@@ -90,7 +90,9 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "80px auto"
   },
   top:{
-    height: '35px',
+
+    height: '64px',
+
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center'
@@ -102,7 +104,16 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "grey",
       color: "black"
+
+    },
+    toolButtons: {
+      display: "inline-block",
+      float: "right",
+    },
+    appBarGrid: {},
+
     }
+
   },
 }));
 
@@ -154,6 +165,8 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
+
+
           <Typography className={classes.heading} variant="h6">
             SabMeets
           </Typography>
@@ -180,6 +193,7 @@ export default function PersistentDrawerLeft() {
             </Button>
             <Button color="inherit">LOGIN</Button>
           </div>
+
         </Toolbar>
       </AppBar>
 
@@ -219,7 +233,9 @@ export default function PersistentDrawerLeft() {
             disableElevation 
             variant="contained" 
             color="primary"
+
             fullWidth='true'
+
             >
               <Button onClick={selectDrawerAdminView}>Admin</Button>
               <Button onClick={selectDrawerSettingView}>Settings</Button>
