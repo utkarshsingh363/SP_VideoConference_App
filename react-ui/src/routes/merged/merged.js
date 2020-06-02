@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
+    height:'64px',
     marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
@@ -90,8 +91,7 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "80px auto"
   },
   top:{
-
-    height: '64px',
+    height: '35px',
 
     display: 'flex',
     alignItems: 'center',
@@ -114,7 +114,6 @@ const useStyles = makeStyles(theme => ({
 
     }
 
-  },
 }));
 
 
@@ -165,35 +164,36 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-
-
-          <Typography className={classes.heading} variant="h6">
-            SabMeets
-          </Typography>
-          <div className={classes.toolButtons}>
-            <Button
-              color="inherit"
-              href="/schedulemeeting"
-              className={classes.allB}
-            >
-              Schedule{" "}
-            </Button>
-            <Button
-              color="inherit"
-              href="/schedulemeeting"
-              className={classes.allB}
-            >
-              Schedule{" "}
-            </Button>
-            <Button color="inherit" href="/joinroom">
-              Join
-            </Button>
-            <Button color="inherit" href="/createroom">
-              Create
-            </Button>
-            <Button color="inherit">LOGIN</Button>
-          </div>
-
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            className={classes.appBarGrid}
+          >
+            <Grid item xs={2}>
+              <Typography className={classes.heading} variant="h6">
+                SabMeets
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <div style={{float:"right", display:"block-inline"}}>
+                <Button
+                  color="inherit"
+                  href="/schedulemeeting"
+                  
+                >
+                  Schedule{" "}
+                </Button>
+                <Button color="inherit" href="/joinroom">
+                  Join
+                </Button>
+                <Button color="inherit" href="/createroom">
+                  Create
+                </Button>
+                <Button color="inherit">Logout</Button>
+              </div>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
 

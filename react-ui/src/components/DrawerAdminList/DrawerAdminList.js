@@ -17,6 +17,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ProfileWindow from "../../components/ProfileWindow/ProfileWindow";
 import OrganizationWindow from "../../components/OrganizationWindow/OrganizationWindow";
 import SubgroupWindow from "../../components/SubgroupWindow/SubgroupWindow";
+import RequestWindow from '../../components/RequestWindow/RequestWindow'
 
 import DMWindow from '../../components/DirectMessageWindow/DirectMessageWindow'
 import Backdrop from "../../components/Backdrop/Backdrop";
@@ -41,8 +42,8 @@ export default function DrawerAdminList(){
     const [openProfile, setProfile] = React.useState(false);
     const [openOrganization, setOrganization] = React.useState(false);
     const [openSubgroup, setSubgroup] = React.useState(false);
-
     const [openDM, setDM] = React.useState(false);
+    const [openRequest, setRequest] = React.useState(false);
 
     const [openOrganizationTab, setOrganizationTab] = React.useState(false);
     const [openSubgroupTab, setSubgroupTab] = React.useState(false);
@@ -61,6 +62,16 @@ export default function DrawerAdminList(){
       const profileWindowClose = () => {
         setProfile(false);
         console.log(openProfile);
+      };
+
+      const requestWindowOpen = () => {
+        setRequest(true);
+        console.log(openRequest);
+      };
+    
+      const requestWindowClose = () => {
+        setRequest(false);
+        console.log(openRequest);
       };
     
       const organizationWindowOpen = () => {
@@ -403,7 +414,9 @@ export default function DrawerAdminList(){
               </Grid>
               <Grid item xs={1}>
 
-                {/* <AddIcon /> */}
+              <AddIcon onClick={requestWindowOpen}/>
+                <RequestWindow show={openRequest} closed={requestWindowClose} />
+                <Backdrop show={openRequest} />
 
               </Grid>
             </Grid>

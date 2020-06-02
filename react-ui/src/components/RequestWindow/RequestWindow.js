@@ -15,7 +15,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 //Content Import
 import Ayush from "../../static/img/profileTest/Ayush.jpg";
 import SP from '../../static/img/sabmeets.jpeg'
-import "./DirectMessageWindow.css";
+import "./RequestWindow.css";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
 export default function DirectMessageWindow(props) {
   const classes = useStyles();
   const cssClasses = [
-    "dmWindow",
-    props.show ? "dmWindowOpen" : "dmnWindowClosed"
+    "requestWindow",
+    props.show ? "requestWindowOpen" : "requestWindowClosed"
   ];
 
   return (
@@ -105,9 +105,14 @@ export default function DirectMessageWindow(props) {
                     <Typography>utkarshsingh363@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
@@ -127,9 +132,14 @@ export default function DirectMessageWindow(props) {
                     <Typography>rawatayush007@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
@@ -149,9 +159,14 @@ export default function DirectMessageWindow(props) {
                     <Typography>mukeshKumar@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
@@ -171,9 +186,14 @@ export default function DirectMessageWindow(props) {
                     <Typography>karan123@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>

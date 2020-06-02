@@ -1,4 +1,4 @@
-.dmWindow {
+.requestWindow {
     position: fixed;
     z-index: 200;
     border: 1px solid #eee;
@@ -16,10 +16,10 @@
     background-color:#1769aa;
   }
   
-  .dmWindowOpen {
+  .requestWindowOpen {
     display: block;
   }
   
-  .dmnWindowClosed {
+  .requestWindowClosed {
     display: none;
   }
