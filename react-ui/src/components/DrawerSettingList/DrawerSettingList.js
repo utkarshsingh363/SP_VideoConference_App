@@ -50,7 +50,9 @@ export default function DrawerSettingList(){
               </Grid>
               <Grid item xs={10}>
                 <ListItemText
-                  primary="Admin Settings"
+
+                  primary="Settings"
+
                   style={{ textAlign: "center" }}
                 />
               </Grid>

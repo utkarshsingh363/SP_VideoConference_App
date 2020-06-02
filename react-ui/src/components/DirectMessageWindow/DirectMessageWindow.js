@@ -1,15 +1,15 @@
 import React from "react";
-import "./SubgroupWindow.css";
+import "./DirectMessageWindow.css";
 
-export default function SubgroupWindow(props) {
+export default function DirectMessageWindow(props) {
   const cssClasses = [
-    "subgroupWindow",
-    props.show ? "subgroupWindowOpen" : "subgroupWindowClosed"
+    "dmWindow",
+    props.show ? "dmWindowOpen" : "dmnWindowClosed"
   ];
 
   return (
     <div className={cssClasses.join(" ")}>
-      <h1>Private Group Window</h1>
+      <h1>Direct Message Window</h1>
       <button className="Button" onClick={props.closed}>
         Dismiss
       </button>

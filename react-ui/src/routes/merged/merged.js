@@ -90,7 +90,9 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "80px auto"
   },
   top:{
+
     height: '64px',
+
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center'
@@ -102,12 +104,16 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "grey",
       color: "black"
+
     },
     toolButtons: {
       display: "inline-block",
       float: "right",
     },
     appBarGrid: {},
+
+    }
+
   },
 }));
 
@@ -159,36 +165,35 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Grid
-            container
-            justify="space-between"
-            alignItems="center"
-            className={classes.appBarGrid}
-          >
-            <Grid item xs={2}>
-              <Typography className={classes.heading} variant="h6">
-                SabMeets
-              </Typography>
-            </Grid>
-            <Grid item xs={10}>
-              <div style={{float:"right", display:"block-inline"}}>
-                <Button
-                  color="inherit"
-                  href="/schedulemeeting"
-                  
-                >
-                  Schedule{" "}
-                </Button>
-                <Button color="inherit" href="/joinroom">
-                  Join
-                </Button>
-                <Button color="inherit" href="/createroom">
-                  Create
-                </Button>
-                <Button color="inherit">Logout</Button>
-              </div>
-            </Grid>
-          </Grid>
+
+
+          <Typography className={classes.heading} variant="h6">
+            SabMeets
+          </Typography>
+          <div className={classes.toolButtons}>
+            <Button
+              color="inherit"
+              href="/schedulemeeting"
+              className={classes.allB}
+            >
+              Schedule{" "}
+            </Button>
+            <Button
+              color="inherit"
+              href="/schedulemeeting"
+              className={classes.allB}
+            >
+              Schedule{" "}
+            </Button>
+            <Button color="inherit" href="/joinroom">
+              Join
+            </Button>
+            <Button color="inherit" href="/createroom">
+              Create
+            </Button>
+            <Button color="inherit">LOGIN</Button>
+          </div>
+
         </Toolbar>
       </AppBar>
 
@@ -228,6 +233,9 @@ export default function PersistentDrawerLeft() {
             disableElevation 
             variant="contained" 
             color="primary"
+
+            fullWidth='true'
+
             >
               <Button onClick={selectDrawerAdminView}>Admin</Button>
               <Button onClick={selectDrawerSettingView}>Settings</Button>
