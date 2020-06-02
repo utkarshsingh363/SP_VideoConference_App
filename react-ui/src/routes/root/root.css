@@ -35,6 +35,24 @@ html, body {
         "m m m m m m"
         "f f f f f f";
 }
+.root-page-info-shift {
+    display: grid;
+    height: 87vh;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 60px;
+    grid-template-areas: 
+        "s s s s s dh dh"
+        "m m m m m d d"
+        "m m m m m d d"
+        "m m m m m d d"
+        "m m m m m d d"
+        "m m m m m d d"
+        "m m m m m d d"
+        "m m m m m d d"
+        "f f f f f d d";
+}
+
+
 .selected-info{
     grid-area:s}
 
@@ -42,9 +60,7 @@ html, body {
     grid-area: n;
 }
 
-.rooms-list {
-    grid-area: r;
-}
+
 
 .message-list {
     grid-area: m;
@@ -55,39 +71,13 @@ html, body {
 }
 
 /* REST OF CSS */
-.rooms-list {
-    box-sizing: border-box;
-    padding: 10px;
-    background-color: var(--main-color);
-    overflow-y: scroll;
-    height: 100%;
-}
 
-.rooms-list > ul {
-    list-style-type: none;    
-    padding: 0;
-    overflow: scoll;
-}
 
-.rooms-list li {
-    margin: 10px 0;
-}
 
-.rooms-list > h3 {
-    margin: 5px 0;
-    color: var(--secondary-color);
-}
 
-.rooms-list .room a {
-    color: var(--secondary-text-color);
-    font-weight: 600;
-    text-decoration: none;
-    
- }
 
-.rooms-list .room.active a {
-    color: var(--secondary-color);
-}
+
+
 
 .new-room-form {
     padding: 0 5px;

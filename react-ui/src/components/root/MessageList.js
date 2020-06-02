@@ -6,7 +6,7 @@ const DUMMY_DATA = [
         text: 'Hey, how is it going?'
     },
     {
-        senderId: 'uttkarsh',
+        senderId: 'You',
         text: 'Great! How about you?'
     },
     {
