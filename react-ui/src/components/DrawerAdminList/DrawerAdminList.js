@@ -17,7 +17,9 @@ import CheckIcon from '@material-ui/icons/Check';
 import ProfileWindow from "../../components/ProfileWindow/ProfileWindow";
 import OrganizationWindow from "../../components/OrganizationWindow/OrganizationWindow";
 import SubgroupWindow from "../../components/SubgroupWindow/SubgroupWindow";
+import DMWindow from '../../components/DirectMessageWindow/DirectMessageWindow'
 import Backdrop from "../../components/Backdrop/Backdrop";
+import { red } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +39,7 @@ export default function DrawerAdminList(){
     const [openProfile, setProfile] = React.useState(false);
     const [openOrganization, setOrganization] = React.useState(false);
     const [openSubgroup, setSubgroup] = React.useState(false);
+    const [openDM, setDM] = React.useState(false);
     const [openOrganizationTab, setOrganizationTab] = React.useState(false);
     const [openSubgroupTab, setSubgroupTab] = React.useState(false);
     const [openDMTab, setDMTab] = React.useState(false);
@@ -64,6 +67,16 @@ export default function DrawerAdminList(){
       const organizationWindowClose = () => {
         setOrganization(false);
         console.log(openOrganization);
+      };
+
+      const dmWindowOpen = () => {
+        setDM(true);
+        console.log(openDM);
+      };
+    
+      const dmWindowClose = () => {
+        setDM(false);
+        console.log(openDM);
       };
     
       const subgroupWindowOpen = () => {
@@ -117,6 +130,7 @@ export default function DrawerAdminList(){
                 <ListItemText
                   primary="Profile"
                   style={{ textAlign: "center" }}
+                  
                 />
               </Grid>
               <Grid item xs={1}>
@@ -128,7 +142,7 @@ export default function DrawerAdminList(){
           </ListItem>
           <Collapse in={openProfileTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
+              <ListItem button className={classes.nested} >
                 <Grid container xs={12} 
                 style={{ alignItems:'center'}}
                 justify='flex-start' >
@@ -191,17 +205,58 @@ export default function DrawerAdminList(){
    
         <Divider />
 
-        {/* SubGroups Tab */}
+        {/* Admin Group Tab */}
 
         <List>
-          <ListItem button onClick={handleSubgroupTab}>
+          <ListItem button onClick={handleAdminGrouptTab}>
             <Grid container xs={12}>
               <Grid item xs={1}>
                 {/* {openSubgroupTab ? <ExpandLess /> : <ExpandMore />} */}
               </Grid>
               <Grid item xs={10}>
                 <ListItemText
-                  primary="Groups"
+                  primary="Admin Groups"
+                  style={{ textAlign: "center" }}
+                />
+              </Grid>
+              {/* <Grid item xs={1}>
+                <AddIcon onClick={subgroupWindowOpen}/>
+                <SubgroupWindow
+                show={openSubgroup}
+                closed={subgroupWindowClose}
+                />
+                <Backdrop show={openSubgroup} />
+              </Grid> */}
+            </Grid>
+          </ListItem>
+          <Collapse in={openAdminGroupTab} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <ListItemText primary="Technology" />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemText primary='Product' />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemText primary='Support' />
+              </ListItem>
+            </List>
+            </Collapse>
+          </List>
+
+        <Divider />
+
+        {/* // Private Group Tab */}
+
+        <List>
+          <ListItem button onClick={handlePrivateGroupTab}>
+            <Grid container xs={12}>
+              <Grid item xs={1}>
+                {/* {openSubgroupTab ? <ExpandLess /> : <ExpandMore />} */}
+              </Grid>
+              <Grid item xs={10}>
+                <ListItemText
+                  primary="Private Groups"
                   style={{ textAlign: "center" }}
                 />
               </Grid>
@@ -215,59 +270,20 @@ export default function DrawerAdminList(){
               </Grid>
             </Grid>
           </ListItem>
-          <Collapse in={openSubgroupTab} timeout="auto" unmountOnExit>
+          <Collapse in={openPrivateGroupTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
-                {/* <ListItemText primary="Technology" /> */}
-                <List>
-                  <ListItem button onClick={handleAdminGrouptTab}>
-                    <ListItemText
-                    primary="Admin Groups"
-                    style={{ textAlign: "center" }}
-                    />
-                  </ListItem>
-                  <Collapse  in={openAdminGroupTab} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItem button className={classes.nested}>
-                        <ListItemText primary='Technology' />
-                      </ListItem>
-                      <ListItem button className={classes.nested}>
-                        <ListItemText primary='Product' />
-                      </ListItem>
-                      <ListItem button className={classes.nested}>
-                        <ListItemText primary='Support' />
-                      </ListItem>
-                    </List>
-                  </Collapse>
-                </List>
+                <ListItemText primary="Task Force: Sabmeets" />
               </ListItem>
               <ListItem button className={classes.nested}>
-                {/* <ListItemText primary="Product" /> */}
-                <List>
-                  <ListItem button onClick={handlePrivateGroupTab}>
-                    <ListItemText
-                    primary="Private Groups"
-                    style={{ textAlign: "center" }}
-                    />
-                  </ListItem>
-                  <Collapse  in={openPrivateGroupTab} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItem button className={classes.nested}>
-                        <ListItemText primary='Team A' />
-                      </ListItem>
-                      <ListItem button className={classes.nested}>
-                        <ListItemText primary='Team B' />
-                      </ListItem>
-                    </List>
-                  </Collapse>
-                </List>
+                <ListItemText primary='Tech Team Daily Repts' />
               </ListItem>
-              {/* <ListItem button className={classes.nested}>
-                <ListItemText primary="Support" />
-              </ListItem> */}
+              <ListItem button className={classes.nested}>
+                <ListItemText primary='Masha AI' />
+              </ListItem>
             </List>
-          </Collapse>
-        </List>
+            </Collapse>
+          </List>
 
         <Divider />
 
@@ -282,7 +298,9 @@ export default function DrawerAdminList(){
                 <ListItemText primary="Direct Messages" />
               </Grid>
               <Grid item xs={1}>
-                <AddIcon />
+                <AddIcon onClick={dmWindowOpen}/>
+                <DMWindow show={openDM} closed={dmWindowClose} />
+                <Backdrop show={openDM} />
               </Grid>
             </Grid>
           </ListItem>
@@ -368,7 +386,7 @@ export default function DrawerAdminList(){
                 <ListItemText primary="Requests" />
               </Grid>
               <Grid item xs={1}>
-                <AddIcon />
+                {/* <AddIcon /> */}
               </Grid>
             </Grid>
           </ListItem>

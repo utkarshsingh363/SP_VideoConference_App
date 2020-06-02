@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "80px auto"
   },
   top:{
-    height: '64px',
+    height: '35px',
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center'
@@ -219,6 +219,7 @@ export default function PersistentDrawerLeft() {
             disableElevation 
             variant="contained" 
             color="primary"
+            fullWidth='true'
             >
               <Button onClick={selectDrawerAdminView}>Admin</Button>
               <Button onClick={selectDrawerSettingView}>Settings</Button>
