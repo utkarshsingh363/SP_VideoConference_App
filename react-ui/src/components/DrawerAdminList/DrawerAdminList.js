@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function DrawerAdminList(){
+export default function DrawerAdminList(props){
     const classes = useStyles();
     const theme = useTheme();
     const [openProfile, setProfile] = React.useState(false);
@@ -151,7 +151,7 @@ export default function DrawerAdminList(){
                 />
               </Grid>
               <Grid item xs={1}>
-                <AccountCircleIcon onClick={profileWindowOpen} />
+                <AccountCircleIcon onClick={props.openprofile} />
                 <ProfileWindow show={openProfile} closed={profileWindowClose} />
                 <Backdrop show={openProfile} />
               </Grid>
