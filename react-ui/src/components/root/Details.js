@@ -1,4 +1,5 @@
 import React from 'react';
+import '../root/Details.css'
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
@@ -13,12 +14,12 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 
 const useStyles = makeStyles((theme) => ({
-  divclass: {
-    gridArea: "d",
-    border: "solid",
-    overflowX: "scroll"
+  // divclass: {
+  //   gridArea: "d",
+  //   border: "solid",
+  //   overflowX: "scroll"
 
-  },
+  // },
   grid: {
     width: "100%",
     margin: "0px",
@@ -42,7 +43,10 @@ const Details = () => {
   const classes = useStyles();
   const theme = useTheme();
   return (
-    <div className={classes.divclass}>
+    <div 
+    // className={classes.divclass}
+    className='divclass'
+    >
       <Grid
         container
         direction="column"

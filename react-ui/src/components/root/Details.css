@@ -1,0 +1,9 @@
+.divclass{
+    grid-area: d;
+    border: solid;
+    overflow-x: scroll;
+    overflow-y: scroll;
+  }
+.divclass::-webkit-scrollbar {
+    display: none;
+}

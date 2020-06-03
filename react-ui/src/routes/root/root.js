@@ -23,8 +23,8 @@ class Root extends Component {
         <MessagageList />
         <SendMessageForm />
         {/* <div className="selected-group-person-page" style={{backgroundColor:'red'}}> */}
-            <DetailsHeader/>
-            <Details/>
+          <DetailsHeader/>
+          <Details/>
         
       </div>
 

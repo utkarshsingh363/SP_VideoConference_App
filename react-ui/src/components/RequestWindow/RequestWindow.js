@@ -91,14 +91,14 @@ export default function DirectMessageWindow(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container s={12} xs={12} spacing={3} style={{justifyContent:'space-around'}} >
-            <Grid item s={6} xs={6}>
+          <Grid container  xs={12} spacing={3} style={{justifyContent:'space-around'}} >
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12}>
+                  <Grid item  xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Utkarsh Singh</Typography>
                     <Typography>Trainee Data Science</Typography>
@@ -119,13 +119,13 @@ export default function DirectMessageWindow(props) {
               </Card>
             </Grid>
 
-            <Grid item s={6} xs={6}>
+            <Grid item xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12}>
+                  <Grid item  xs={12}>
                     <img src={Ayush} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Ayush Rawat</Typography>
                     <Typography>Software Engineer</Typography>
@@ -146,13 +146,13 @@ export default function DirectMessageWindow(props) {
               </Card>
             </Grid>
             
-            <Grid item s={6} xs={6}>
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12} style={{justifyContent:'center'}}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12} style={{justifyContent:'center'}}>
+                  <Grid itemProp xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Mukesh Kumar</Typography>
                     <Typography>Software Engineer</Typography>
@@ -173,13 +173,13 @@ export default function DirectMessageWindow(props) {
               </Card>
             </Grid>
 
-            <Grid item s={6} xs={6}>
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container xs={12}>
+                  <Grid item  xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Karan</Typography>
                     <Typography>Android Developer</Typography>

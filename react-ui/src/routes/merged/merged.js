@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import '../merged/merged.css'
 
 //Core Imports
 import {Drawer, CssBaseline, AppBar,Button,Toolbar,Typography,Divider,IconButton, Grid,ButtonGroup }from "@material-ui/core";
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   appBar: {
-    backgroundColor: "rgb(255,105,0)",
+    backgroundColor: "primary",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -49,9 +50,14 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     flexShrink: 0
   },
-  drawerPaper: {
-    width: drawerWidth
-  },
+
+  // drawerPaper: {
+  //   width: drawerWidth,
+  //   overflowY:'scroll'
+  // },
+  // "&:-webkitScrollbar":{
+  //   display:'none'
+  // },
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -201,11 +207,13 @@ export default function PersistentDrawerLeft() {
 
       <Drawer
         className={classes.drawer}
+        // className='drawer'
         variant="persistent"
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper
+          paper: 'drawerPaper'
+          // paper: classes.drawerPaper
         }}
       >
           <div className={classes.drawerHeader}>
