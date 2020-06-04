@@ -105,16 +105,13 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "grey",
       color: "black"
 
-    },
-    toolButtons: {
-      display: "inline-block",
-      float: "right",
-    },
-    appBarGrid: {},
-
     }
+  }
+    
 
-  },
+    
+
+  
 }));
 
 
@@ -149,6 +146,7 @@ export default function PersistentDrawerLeft() {
 
       {/* // AppBar  */}
 
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -165,35 +163,36 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-
-
-          <Typography className={classes.heading} variant="h6">
-            SabMeets
-          </Typography>
-          <div className={classes.toolButtons}>
-            <Button
-              color="inherit"
-              href="/schedulemeeting"
-              className={classes.allB}
-            >
-              Schedule{" "}
-            </Button>
-            <Button
-              color="inherit"
-              href="/schedulemeeting"
-              className={classes.allB}
-            >
-              Schedule{" "}
-            </Button>
-            <Button color="inherit" href="/joinroom">
-              Join
-            </Button>
-            <Button color="inherit" href="/createroom">
-              Create
-            </Button>
-            <Button color="inherit">LOGIN</Button>
-          </div>
-
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            className={classes.appBarGrid}
+          >
+            <Grid item xs={2}>
+              <Typography className={classes.heading} variant="h6">
+                SabMeets
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <div style={{float:"right", display:"block-inline"}}>
+                <Button
+                  color="inherit"
+                  href="/schedulemeeting"
+                  
+                >
+                  Schedule{" "}
+                </Button>
+                <Button color="inherit" href="/joinroom">
+                  Join
+                </Button>
+                <Button color="inherit" href="/createroom">
+                  Create
+                </Button>
+                <Button color="inherit">Logout</Button>
+              </div>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
 
