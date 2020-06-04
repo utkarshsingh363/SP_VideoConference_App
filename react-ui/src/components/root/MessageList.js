@@ -1,4 +1,5 @@
 import React from 'react'
+import '../root/MessageList.css'
 
 const DUMMY_DATA = [
     {
