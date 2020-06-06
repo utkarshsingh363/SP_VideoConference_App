@@ -130,7 +130,7 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [drawerView, setDrawerView] = React.useState("admin");
-  const [profileDetails, setProfileDetails] = React.useState(false);
+  const [profileDetails, setProfileDetails] = React.useState(true);
 
   const openProfileDetails = () => {
     setProfileDetails(true);
@@ -258,7 +258,7 @@ export default function PersistentDrawerLeft() {
 
         <Divider />
 
-        <DrawerView drawerview={drawerView} openprofile={openProfileDetails} />
+        <DrawerView drawerview={drawerView} />
         {/* </div> */}
         <Divider />
       </Drawer>
@@ -268,7 +268,12 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Root profdetails={profileDetails} click={closeProfileDetails} />
+
+        <Root
+          profdetails={profileDetails}
+          click={closeProfileDetails}
+          openprofile={openProfileDetails}
+        />
       </main>
     </div>
   );

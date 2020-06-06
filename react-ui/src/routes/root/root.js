@@ -10,40 +10,33 @@ import SendMessageForm from "../../components/root/SendMessageForm";
 import RoomList from "../../components/root/RoomList";
 import NewRoomForm from "../../components/root/NewRoomForm";
 import SelectedGroupOrPersonInfo from "../../components/root/SelectedInfo";
-import DetailsHeader from "../../components/root/DetailsHeader"
-import Details from "../../components/root/Details"
+import DetailsHeader from "../../components/root/DetailsHeader";
+import Details from "../../components/root/Details";
 
-
-export default (props)=>{
-  if (props.profdetails){
+export default (props) => {
+  if (props.profdetails) {
     return (
       <div className="root-page-info-shift">
         {/* <RoomList/> */}
-        <SelectedGroupOrPersonInfo />
+        <SelectedGroupOrPersonInfo onClickInfoButton={props.openprofile} />
         <MessagageList />
         <SendMessageForm />
         {/* <div className="selected-group-person-page" style={{backgroundColor:'red'}}> */}
-          <DetailsHeader close={props.click}/>
-          <Details/>
-        
+        <DetailsHeader close={props.click} />
+        <Details />
       </div>
-  
-  
     );
-  }else {
+  } else {
     return (
       <div className="root-page">
         {/* <RoomList/> */}
-        <SelectedGroupOrPersonInfo />
+        <SelectedGroupOrPersonInfo onClickInfoButton={props.openprofile} />
         <MessagageList />
         <SendMessageForm />
         {/* <div className="selected-group-person-page" style={{backgroundColor:'red'}}> */}
-          {/* <DetailsHeader close={props.click}/>
+        {/* <DetailsHeader close={props.click}/>
           <Details/> */}
-        
       </div>
-  
-  
     );
   }
-}
+};
