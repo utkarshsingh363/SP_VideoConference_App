@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import '../merged/merged.css'
 
 //Core Imports
 import {Drawer, CssBaseline, AppBar,Button,Toolbar,Typography,Divider,IconButton, Grid,ButtonGroup }from "@material-ui/core";
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   appBar: {
-    backgroundColor: "rgb(255,105,0)",
+    backgroundColor: "primary",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
+    height:'64px',
     marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
@@ -48,9 +50,14 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     flexShrink: 0
   },
-  drawerPaper: {
-    width: drawerWidth
-  },
+
+  // drawerPaper: {
+  //   width: drawerWidth,
+  //   overflowY:'scroll'
+  // },
+  // "&:-webkitScrollbar":{
+  //   display:'none'
+  // },
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -90,8 +97,7 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "80px auto"
   },
   top:{
-
-    height: '64px',
+    height: '35px',
 
     display: 'flex',
     alignItems: 'center',
@@ -109,9 +115,12 @@ const useStyles = makeStyles(theme => ({
   }
     
 
+<<<<<<< HEAD
     
 
   
+=======
+>>>>>>> upstream/master
 }));
 
 
@@ -121,6 +130,16 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [drawerView, setDrawerView] = React.useState('admin');
+  const [profileDetails, setProfileDetails]=React.useState(false)
+
+  const openProfileDetails=()=>{
+    setProfileDetails(true)
+    // const profDetails=profileDetails
+  }
+
+  const closeProfileDetails=()=>{
+    setProfileDetails(false)
+  }
 
   const selectDrawerAdminView=()=>{
     setDrawerView('admin')
@@ -200,11 +219,13 @@ export default function PersistentDrawerLeft() {
 
       <Drawer
         className={classes.drawer}
+        // className='drawer'
         variant="persistent"
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper
+          paper: 'drawerPaper'
+          // paper: classes.drawerPaper
         }}
       >
           <div className={classes.drawerHeader}>
@@ -245,7 +266,7 @@ export default function PersistentDrawerLeft() {
 
         <Divider />
 
-        <DrawerView drawerview={drawerView} />
+        <DrawerView drawerview={drawerView} openprofile={openProfileDetails}/>
         {/* </div> */}
         <Divider />
       </Drawer>
@@ -255,7 +276,7 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Root />
+        <Root profdetails={profileDetails} click={closeProfileDetails}/>
       </main>
     </div>
   );

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const DetailsHeader = () => {
+const DetailsHeader = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -48,7 +48,7 @@ const DetailsHeader = () => {
          <Grid sm={6} container direction="row" style={{padding:"20px"}}>
            <Grid item sm={12}>
               <div style={{float:"right"}}>
-              <CancelRoundedIcon />
+              <CancelRoundedIcon onClick={props.close}/>
               </div>
             </Grid>
          </Grid> 

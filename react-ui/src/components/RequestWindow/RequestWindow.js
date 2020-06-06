@@ -15,7 +15,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 //Content Import
 import Ayush from "../../static/img/profileTest/Ayush.jpg";
 import SP from '../../static/img/sabmeets.jpeg'
-import "./DirectMessageWindow.css";
+import "./RequestWindow.css";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
 export default function DirectMessageWindow(props) {
   const classes = useStyles();
   const cssClasses = [
-    "dmWindow",
-    props.show ? "dmWindowOpen" : "dmnWindowClosed"
+    "requestWindow",
+    props.show ? "requestWindowOpen" : "requestWindowClosed"
   ];
 
   return (
@@ -91,89 +91,109 @@ export default function DirectMessageWindow(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container s={12} xs={12} spacing={3} style={{justifyContent:'space-around'}} >
-            <Grid item s={6} xs={6}>
+          <Grid container  xs={12} spacing={3} style={{justifyContent:'space-around'}} >
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12}>
+                  <Grid item  xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Utkarsh Singh</Typography>
                     <Typography>Trainee Data Science</Typography>
                     <Typography>utkarshsingh363@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
               </Card>
             </Grid>
 
-            <Grid item s={6} xs={6}>
+            <Grid item xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12}>
+                  <Grid item  xs={12}>
                     <img src={Ayush} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Ayush Rawat</Typography>
                     <Typography>Software Engineer</Typography>
                     <Typography>rawatayush007@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
               </Card>
             </Grid>
             
-            <Grid item s={6} xs={6}>
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12} style={{justifyContent:'center'}}>
-                  <Grid item s={4} xs={12}>
+                <Grid container  xs={12} style={{justifyContent:'center'}}>
+                  <Grid itemProp xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Mukesh Kumar</Typography>
                     <Typography>Software Engineer</Typography>
                     <Typography>mukeshKumar@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>
               </Card>
             </Grid>
 
-            <Grid item s={6} xs={6}>
+            <Grid item  xs={6}>
               <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
+                <Grid container xs={12}>
+                  <Grid item  xs={12}>
                     <img src={SP} width="100%" height="100%" />
                   </Grid>
-                  <Grid item s={8} xs={12}>
+                  <Grid item xs={12}>
                     <CardContent>
                     <Typography>Karan</Typography>
                     <Typography>Android Developer</Typography>
                     <Typography>karan123@gmail.com</Typography>
                     </CardContent> 
                   </Grid> 
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <Button variant="contained" size="small" color="primary" >
-                      Add to List
+                      Accept
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button variant="contained" size="small" color="secondary" >
+                      Delete
                     </Button>
                   </Grid>
                 </Grid>

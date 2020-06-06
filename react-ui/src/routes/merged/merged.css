@@ -1,0 +1,12 @@
+.drawerPaper{
+    width: 300px;
+    overflow-y: scroll;
+  }
+  
+.drawerPaper::-webkit-scrollbar {
+display: none;
+}
+
+.drawerPaper {
+    -ms-overflow-style: none;
+}

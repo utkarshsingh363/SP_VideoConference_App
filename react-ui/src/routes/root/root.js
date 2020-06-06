@@ -13,9 +13,9 @@ import SelectedGroupOrPersonInfo from "../../components/root/SelectedInfo";
 import DetailsHeader from "../../components/root/DetailsHeader"
 import Details from "../../components/root/Details"
 
-class Root extends Component {
 
-  render() {
+export default (props)=>{
+  if (props.profdetails){
     return (
       <div className="root-page-info-shift">
         {/* <RoomList/> */}
@@ -23,14 +23,27 @@ class Root extends Component {
         <MessagageList />
         <SendMessageForm />
         {/* <div className="selected-group-person-page" style={{backgroundColor:'red'}}> */}
-            <DetailsHeader/>
-            <Details/>
+          <DetailsHeader close={props.click}/>
+          <Details/>
         
       </div>
-
-
+  
+  
+    );
+  }else {
+    return (
+      <div className="root-page">
+        {/* <RoomList/> */}
+        <SelectedGroupOrPersonInfo />
+        <MessagageList />
+        <SendMessageForm />
+        {/* <div className="selected-group-person-page" style={{backgroundColor:'red'}}> */}
+          {/* <DetailsHeader close={props.click}/>
+          <Details/> */}
+        
+      </div>
+  
+  
     );
   }
 }
-
-export default Root;
