@@ -1,6 +1,9 @@
 import React from 'react'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
+//Redux exports
+import { connect } from 'react-redux'
+
 //Core Imports
 import {Grid,List,ListItem,ListItemText,Collapse }from "@material-ui/core";
 
@@ -20,30 +23,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function DrawerSettingList(){
+function DrawerSettingList(props){
     const classes = useStyles();
     const theme = useTheme();
-    const [openSettingTab, setSettingTab] = React.useState(true);
-    const [openSetting, setSetting] = React.useState(false);
 
-      
-    const handleSettingTab = () => {
-        setSettingTab(!openSettingTab);
-      };
-
-      const settingWindowOpen = () => {
-        setSetting(true);
-        console.log(openSetting);
-      };
-    
-      const settingWindowClose = () => {
-        setSetting(false);
-        console.log(openSetting);
-      };
     return(
         <div>
         <List>
-          <ListItem button onClick={handleSettingTab}>
+          <ListItem button onClick={props.handleSettingTab}>
             <Grid container xs={12}>
               <Grid item xs={1}>  
                 {/* {openSettingTab ? <ExpandLess /> : <ExpandMore />} */}
@@ -57,16 +44,16 @@ export default function DrawerSettingList(){
                 />
               </Grid>
               <Grid item xs={1}>
-                <AddIcon onClick={settingWindowOpen}/>
+                <AddIcon onClick={props.settingWindowOpen}/>
                 <SettingWindow
-                  show={openSetting}
-                  closed={settingWindowClose}
+                  show={props.openSetting}
+                  closed={props.settingWindowClose}
                 />
-                <Backdrop show={openSetting} />
+                <Backdrop show={props.openSetting} />
               </Grid>
             </Grid>
           </ListItem>
-          <Collapse in={openSettingTab} timeout="auto" unmountOnExit>
+          <Collapse in={props.openSettingTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
                 <ListItemText primary="Option 1" />
@@ -81,8 +68,24 @@ export default function DrawerSettingList(){
     )
 }
 
+const mapStateToProps= state=>{
+  return{
+    openSettingTab: state.drawerSet.openSettingTab,
+    openSetting: state.drawerSet.openSetting
+  }
+}
 
 
+const mapDispatchToProps = dispatch =>{
+  return{
+    handleSettingTab: ()=>dispatch({type:'HANDLE_SETTING_TAB'}),
+    settingWindowOpen: ()=>dispatch({type:'OPEN_SETTING_WINDOW'}),
+    settingWindowClose: ()=>dispatch({type:'CLOSE_SETTING_WINDOW'})
+    
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DrawerSettingList);
 
 
 

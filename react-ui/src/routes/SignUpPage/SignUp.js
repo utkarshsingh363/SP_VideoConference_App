@@ -461,14 +461,14 @@ function IndividualForm(props){
             numInputs={6}
         />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Paper elevation={0}>
             <Typography variant="h7">
                 What is your Organization type?
             </Typography>
           </Paper>
-          </Grid>
-        <Grid item xs={12}>
+          </Grid> */}
+        {/* <Grid item xs={12}>
           <TextField
             variant="outlined"
             required
@@ -478,7 +478,7 @@ function IndividualForm(props){
             name="companyType"
             autoComplete="companyType"
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <Paper elevation={0}>
             <Typography variant="h7">
@@ -496,6 +496,13 @@ function IndividualForm(props){
             name="organizationName"
             autoComplete="organizationName"
           />
+        </Grid>
+        <Grid item xs={12}>
+          <Paper elevation={0}>
+            <Typography variant="h7">
+                Please enter your Employee ID
+            </Typography>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
           <TextField

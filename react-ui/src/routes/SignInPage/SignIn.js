@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +12,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
@@ -107,6 +110,28 @@ function FullWidthTabs() {
     // console.log(index);
   };
 
+  const onClickLoginButton=(props)=>{
+    axios.post("https://wallet.sabpaisa.in/sabMeets/login",{ mobileNumber: mobile, password: password })
+      .then((response) => {
+        console.log(response)
+        if(response.data.status=="Success"){
+          // props.history.replace('/')
+          window.location.replace('/')
+        }
+        if(response.data.status=="Check the Credentials"){
+          notify("Incorrect credentials")
+        }  
+      })
+      .catch(error=>{
+        notify("Some error occured")
+      });
+  }
+
+  const [mobile,setMobile]=useState("")
+  const [password,setPassword]=useState("")
+
+  const notify = (message) => toast(message);
+
   return (
     <div className={classes.root}>
       {/* <AppBar position="static" color="default"> */}
@@ -140,6 +165,7 @@ function FullWidthTabs() {
               name="mobile"
               autoComplete="mobile"
               autoFocus
+              onChange={(e)=>setMobile(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -151,17 +177,19 @@ function FullWidthTabs() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onClickLoginButton}
             >
               Login
             </Button>
@@ -194,6 +222,7 @@ function FullWidthTabs() {
               name="phone"
               autoComplete="phone"
               autoFocus
+              onChange={(e)=>setMobile(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -205,17 +234,19 @@ function FullWidthTabs() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onClickLoginButton}
             >
               Login
             </Button>
@@ -297,7 +328,7 @@ function FullWidthTabs() {
 
 // **************************************************************************************************
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
 
   return (

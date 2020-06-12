@@ -1,7 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import '../merged/merged.css'
+
+//Redux exports
+import { connect } from 'react-redux'
 
 //Core Imports
 import {Drawer, CssBaseline, AppBar,Button,Toolbar,Typography,Divider,IconButton, Grid,ButtonGroup }from "@material-ui/core";
@@ -14,6 +17,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 //Component Import
 import Root from "../root/root";
 import DrawerView from '../../components/DrawerView/DrawerView'
+import ScheduleMeetingWindow from '../../components/ScheduleMeetingWindow/ScheduleMeetingWindow'
+import Backdrop from '../../components/Backdrop/Backdrop'
 
 const drawerWidth = 300;
 
@@ -51,13 +56,6 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0
   },
 
-  // drawerPaper: {
-  //   width: drawerWidth,
-  //   overflowY:'scroll'
-  // },
-  // "&:-webkitScrollbar":{
-  //   display:'none'
-  // },
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -84,7 +82,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 0
   },
   large: {
-    // width: theme.spacing(7),
     width: "60px",
     height: theme.spacing(7),
     padding: theme.spacing(0, 1),
@@ -111,12 +108,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "grey",
       color: "black"
 
-    },
-    toolButtons: {
-      display: "inline-block",
-      float: "right",
-    },
-    appBarGrid: {},
+    }
 
     }
 
@@ -124,158 +116,154 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function PersistentDrawerLeft() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [drawerView, setDrawerView] = React.useState('admin');
-  const [profileDetails, setProfileDetails]=React.useState(false)
+function PersistentDrawerLeft(props){
+    const classes = useStyles();
+    const theme = useTheme();
 
-  const openProfileDetails=()=>{
-    setProfileDetails(true)
-    // const profDetails=profileDetails
-  }
-
-  const closeProfileDetails=()=>{
-    setProfileDetails(false)
-  }
-
-  const selectDrawerAdminView=()=>{
-    setDrawerView('admin')
-    console.log(drawerView)
-  }
-
-  const selectDrawerSettingView=()=>{
-    setDrawerView('setting')
-    console.log(drawerView)
-  }
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-
-      {/* // AppBar  */}
-
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+  
+        {/* // AppBar  */}
+  
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: props.open
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={props.handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, props.open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              className={classes.appBarGrid}
+            >
+              <Grid item xs={2}>
+                <Typography className={classes.heading} variant="h6">
+                  SabMeets
+                </Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <div style={{float:"right", display:"block-inline"}}>
+                  <Button
+                    color="inherit"
+                    // href="/schedulemeeting"
+                    onClick={props.scheduleMeetingWindowOpen}
+                  >
+                    Schedule{" "}
+                  </Button>
+                  <ScheduleMeetingWindow show={props.openScheduleMeeting} closed={props.scheduleMeetingWindowClose}/>
+                  <Backdrop show={props.openScheduleMeeting}/>
+                  <Button color="inherit" href="/joinroom">
+                    Join
+                  </Button>
+                  <Button color="inherit" href="/createroom">
+                    Create
+                  </Button>
+                  <Button color="inherit">Logout</Button>
+                </div>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+  
+        {/* Drawer (Split into 2 Views ADMIN and SETTINGS) inside DrawerView */}
+  
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={props.open}
+          classes={{
+            paper: 'drawerPaper'
+          }}
+        >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={props.handleDrawerClose}>
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            </div>
+          <Divider />
+  
+        <div className={classes.top}>
           <Grid
             container
-            justify="space-between"
+            xs={12}
+            style={{ textAlign: "center" }}
             alignItems="center"
-            className={classes.appBarGrid}
-          >
-            <Grid item xs={2}>
-              <Typography className={classes.heading} variant="h6">
-                SabMeets
-              </Typography>
-            </Grid>
-            <Grid item xs={10}>
-              <div style={{float:"right", display:"block-inline"}}>
-                <Button
-                  color="inherit"
-                  href="/schedulemeeting"
-                  
-                >
-                  Schedule{" "}
-                </Button>
-                <Button color="inherit" href="/joinroom">
-                  Join
-                </Button>
-                <Button color="inherit" href="/createroom">
-                  Create
-                </Button>
-                <Button color="inherit">Logout</Button>
-              </div>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-
-      {/* Drawer (Split into 2 Views ADMIN and SETTINGS) inside DrawerView */}
-
-      <Drawer
-        className={classes.drawer}
-        // className='drawer'
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: 'drawerPaper'
-          // paper: classes.drawerPaper
-        }}
-      >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </div>
-        <Divider />
-
-      <div className={classes.top}>
-        <Grid
-          container
-          xs={12}
-          style={{ textAlign: "center" }}
-          alignItems="center"
-          height='64px'
-          >
-          
-          <Grid item xs={12}>
-            <ButtonGroup 
-            disableElevation 
-            variant="contained" 
-            color="primary"
-
-            fullWidth='true'
-
+            height='64px'
             >
-              <Button onClick={selectDrawerAdminView}>Admin</Button>
-              <Button onClick={selectDrawerSettingView}>Settings</Button>
-            </ButtonGroup>
+            
+            <Grid item xs={12}>
+              <ButtonGroup 
+              disableElevation 
+              variant="contained" 
+              color="primary"
+  
+              fullWidth='true'
+  
+              >
+                <Button onClick={props.selectDrawerAdminView}>Admin</Button>
+                <Button onClick={props.selectDrawerSettingView}>Settings</Button>
+              </ButtonGroup>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
+  
+          <Divider />
+  
+          <DrawerView drawerview={props.drawerView} openprofile={props.openProfileDetails}/>
+          {/* </div> */}
+          <Divider />
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: props.open
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <Root profdetails={props.profileDetails} click={props.closeProfileDetails}/>
+        </main>
       </div>
+    );
 
-        <Divider />
 
-        <DrawerView drawerview={drawerView} openprofile={openProfileDetails}/>
-        {/* </div> */}
-        <Divider />
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <Root profdetails={profileDetails} click={closeProfileDetails}/>
-      </main>
-    </div>
-  );
 }
+
+const mapStateToProps= state=>{
+  return{
+    open: state.main.open,
+    drawerView: state.main.drawerView,
+    profileDetails: state.main.profileDetails,
+    openScheduleMeeting: state.main.openScheduleMeeting
+  }
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    handleDrawerOpen: ()=>dispatch({type:'OPEN_DRAWER'}),
+    handleDrawerClose: ()=>dispatch({type:'CLOSE_DRAWER'}),
+    selectDrawerAdminView: ()=>dispatch({type:'SELECT_DRAWER_ADMINVIEW'}),
+    selectDrawerSettingView: ()=>dispatch({type:'SELECT_DRAWER_SETTINGVIEW'}),
+    openProfileDetails: ()=>dispatch({type:'OPEN_PROFILE_DETAILS'}),
+    closeProfileDetails: ()=>dispatch({type:'CLOSE_PROFILE_DETAILS'}),
+    scheduleMeetingWindowOpen: ()=>dispatch({type:'OPEN_SCHEDULEMEETING_WINDOW'}),
+    scheduleMeetingWindowClose: ()=>dispatch({type:'CLOSE_SCHEDULEMEETING_WINDOW'})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PersistentDrawerLeft);
