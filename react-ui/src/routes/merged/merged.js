@@ -130,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -164,6 +164,10 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const onClickLogout=()=>{
+    localStorage.removeItem('token')
+    window.location="/"
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -208,7 +212,7 @@ export default function PersistentDrawerLeft() {
                 <Button color="inherit" href="/createroom">
                   Create
                 </Button>
-                <Button color="inherit">Logout</Button>
+                <Button color="inherit" onClick={onClickLogout}>Logout</Button>
               </div>
             </Grid>
           </Grid>

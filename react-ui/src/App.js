@@ -9,57 +9,74 @@ import ScheduleMeeting from "./routes/Schedule/ScheduleMeeting";
 import SignUp from "./routes/SignUpPage/SignUp";
 import SignIn from "./routes/SignInPage/SignIn";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch ,Redirect } from "react-router-dom";
 
 // import Root from './routes/root/root'
 import Merged from "./routes/merged/merged";
 
 import axios from "axios";
+import { createBrowserHistory } from 'history';
+import { connect } from "react-redux";
+
+import ProtectedRoute from './components/ProtectedRoutes/ProtectedRoute'
+
+
+
+
+
+// import StoreContext from "./contexts/storeContext";
+
+
+
+
+
+
 
 class App extends Component {
+
+   
   render() {
-    var querystring = require("querystring");
-    axios
-      .post(
-        "https://spl.sabpaisa.in/SabPaisaAppApi_v16/sign-in-user",
-        querystring.stringify({ mobileNo: "9899660338", password: "8108" })
-      )
-      .then((response) => {
-        console.log(response.data);
-      });
+    
+    // console.log("loggedIn User",this.props.currentUser)
+
+    const isLoggedIn=(this.props.currentUser.currentUser===undefined)?false:((this.props.currentUser.currentUser.status==="Success")?true:false)
+
+    const isTokenPresent=localStorage.getItem('token')
+    
+    console.log("Logged in hai ya nai ",isLoggedIn)
     return (
-      <div className="App">
-        {/* <Merged /> */}
-        {/* <div className="layout-header">
-        <BackToTop/>
-      </div>
+        
 
-      <div className="layout-center">
-        <Switch>
-          <Route path ='/' exact component={Root}/>
-          <Route path ='/' exact component={Merged}/>
-          <Route path ='/launchconf' exact component={MainWindow}/>
-          <Route path ='/createroom' exact component={CreateRoom}/>
-          <Route path ='/joinroom' exact component={JoinRoom}/>
-          <Route path ='/schedulemeeting' exact component={ScheduleMeeting}/>
-          <CreateRoom/>
-        </Switch>
-      </div> */}
+        <div className="App">
+          <Switch>
+            {/* <Route path ='/' exact component={Root}/> */}
+            {/* <ProtectedRoute  /> */}
+          
+            <ProtectedRoute path="/" exact component={Merged} isLoggedIn={isTokenPresent} /> 
+            
+            <Route path="/signin" exact component={SignIn} />
 
-        <Switch>
-          {/* <Route path ='/' exact component={Root}/> */}
-          <Route path="/" exact component={Merged} />
-          <Route path="/signin" exact component={SignIn} />
-          <Route path="/signup" exact component={SignUp} />
-          <Route path="/launchconf" component={MainWindow} />
-          <Route path="/createroom" exact component={CreateRoom} />
-          <Route path="/joinroom" exact component={JoinRoom} />
-          <Route path="/schedulemeeting" exact component={ScheduleMeeting} />
-          <CreateRoom />
-        </Switch>
-      </div>
+            <Route path="/signup" exact component={SignUp} />
+
+            <ProtectedRoute path="/launchconf" exact component={MainWindow} isLoggedIn={isTokenPresent}/>
+            <ProtectedRoute path="/createroom" exact component={CreateRoom} isLoggedIn={isTokenPresent}/>
+            <Route path="/joinroom" exact component={JoinRoom} />
+            <ProtectedRoute path="/schedulemeeting" exact component={ScheduleMeeting} isLoggedIn={isTokenPresent}/>
+
+            <CreateRoom />
+          </Switch>
+
+        </div>
+
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state.auth.auth)
+  return {
+    currentUser: state.auth.auth,
+  };
+};
+
+export default connect(mapStateToProps)(App);

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,22 +19,38 @@ import SwipeableViews from "react-swipeable-views";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
+import axios from 'axios'
+
 import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import SabpaisaCopyRight from '../../components/SabPaisaCopyRight/SabPaisaCopyRight'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { connect, useDispatch } from "react-redux";
+
+import { auth } from "../../store/auth";
+
+
+// Added SabpaisaCopyRight Component 
+
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" color="textSecondary" align="center">
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://material-ui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 // **************************************************************************************************
+
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -93,22 +109,44 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function FullWidthTabs() {
+function FullWidthTabs(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log(newValue);
+    
   };
 
   const handleChangeIndex = index => {
-    setValue(value);
-    // console.log(index);
+    setValue(index);
+    console.log(index);
+  
   };
+
+  const onClickLoginButton=()=>{
+       // console.log(mobile);
+       const data = {
+        mobileNumber: String(mobile),
+        password: String(password),
+      };
+      console.log("yo", data);
+      console.log(props.auth)
+      props.auth(data);
+      // props.increment();
+  }
+
+  const [mobile,setMobile]=useState("")
+  const [password,setPassword]=useState("")
+
+  const notify = (message) => toast(message);
+
 
   return (
     <div className={classes.root}>
+      <ToastContainer />
       {/* <AppBar position="static" color="default"> */}
       <Tabs
         value={value}
@@ -126,8 +164,11 @@ function FullWidthTabs() {
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
-        onChangeIndex={handleChangeIndex}
+        // onChangeIndex={handleChangeIndex}
       >
+       
+        {/*Tab for organization*/}
+
         <TabPanel value={value} index={0} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -140,6 +181,7 @@ function FullWidthTabs() {
               name="mobile"
               autoComplete="mobile"
               autoFocus
+              onChange={(e)=>setMobile(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -151,17 +193,19 @@ function FullWidthTabs() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              // className={classes.submit}
+              onClick={onClickLoginButton}
             >
               Login
             </Button>
@@ -179,9 +223,12 @@ function FullWidthTabs() {
             </Grid>
           </form>
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
+        
+         {/*Tab for individual*/}
+
         <TabPanel value={value} index={1} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -194,6 +241,7 @@ function FullWidthTabs() {
               name="phone"
               autoComplete="phone"
               autoFocus
+              onChange={(e)=>setMobile(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -205,17 +253,19 @@ function FullWidthTabs() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onClickLoginButton}
             >
               Login
             </Button>
@@ -233,9 +283,12 @@ function FullWidthTabs() {
             </Grid>
           </form>
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
+        
+        {/*Tab for guests*/}
+        
         <TabPanel value={value} index={2} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -287,9 +340,10 @@ function FullWidthTabs() {
             </Grid>
           </form>
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
+     
       </SwipeableViews>
     </div>
   );
@@ -297,12 +351,23 @@ function FullWidthTabs() {
 
 // **************************************************************************************************
 
-export default function SignUp() {
-  const classes = useStyles();
 
-  return (
+
+
+// **************************************************************************************************
+
+
+ function SignUp(props) {
+  const classes = useStyles();
+  
+
+    return (
+    
     <Container component="main" maxWidth="xs">
+      {/* {console.log("this is the props", props)} */}
       <CssBaseline />
+      {(props.currentUser.currentUser)?props.history.replace("/"):""}
+     
       <div className={classes.paper}>
         <div>
           <img src={SabMeetsLogo} width="100" height="100" />
@@ -310,8 +375,29 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <FullWidthTabs />
+
+        <FullWidthTabs {...props} />
       </div>
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log(state.auth.auth)
+  return {
+    currentUser: state.auth.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    auth: (data) => {
+      dispatch(auth(data));
+    },
+  };
+};
+
+
+//state.entities.bugs.list
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp)
