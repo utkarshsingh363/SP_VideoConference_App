@@ -5,6 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker'; 
 import {BrowserRouter} from 'react-router-dom'
 
+import {createStore, combineReducers} from 'redux'
+// import reducer from './store/reducer'
+import main_reducer from './store/components/main_reducer'
+import drawer_admin_reducer from './store/components/drawer_admin_reducer'
+import drawer_setting_reducer from './store/components/drawer_setting_reducer'
+import {Provider} from 'react-redux'
 
 import {Provider} from 'react-redux'
 import configureStore from './store/configureStore'
@@ -44,6 +50,26 @@ const app=(
     </React.StrictMode>
     </Provider>
   </BrowserRouter>
+  
+ 
+
+// const rootReducer=combineReducers({
+//   main:main_reducer,
+//   drawerAd:drawer_admin_reducer,
+//   drawerSet:drawer_setting_reducer
+// })
+
+// const store= createStore(rootReducer)
+
+// const app=(
+//   <Provider store={store}>
+//     <BrowserRouter>
+//       <React.StrictMode>
+//         <App/>
+//       </React.StrictMode>
+//     </BrowserRouter>
+//   </Provider>
+
 )
 ReactDOM.render(app ,document.getElementById('root'));
 

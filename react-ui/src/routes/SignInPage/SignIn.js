@@ -1,4 +1,6 @@
+
 import React,{useState,useEffect} from "react";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +14,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
@@ -136,6 +141,7 @@ function FullWidthTabs(props) {
       console.log(props.auth)
       props.auth(data);
       // props.increment();
+
   }
 
   const [mobile,setMobile]=useState("")
@@ -204,7 +210,9 @@ function FullWidthTabs(props) {
               fullWidth
               variant="contained"
               color="primary"
+
               // className={classes.submit}
+
               onClick={onClickLoginButton}
             >
               Login
@@ -351,13 +359,11 @@ function FullWidthTabs(props) {
 
 // **************************************************************************************************
 
-
-
-
-// **************************************************************************************************
+*****************************************************************************************
 
 
  function SignUp(props) {
+
   const classes = useStyles();
   
 
