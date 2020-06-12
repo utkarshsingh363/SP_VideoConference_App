@@ -12,22 +12,64 @@ import drawer_admin_reducer from './store/components/drawer_admin_reducer'
 import drawer_setting_reducer from './store/components/drawer_setting_reducer'
 import {Provider} from 'react-redux'
 
-const rootReducer=combineReducers({
-  main:main_reducer,
-  drawerAd:drawer_admin_reducer,
-  drawerSet:drawer_setting_reducer
-})
+import {Provider} from 'react-redux'
+import configureStore from './store/configureStore'
+import thunk from "redux-thunk";
+import reducer from "./store/reducer";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
-const store= createStore(rootReducer)
+
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+const logger = (store) => {
+  return (next) => {
+    return (action) => {
+      console.log("[Middleware] Dispatching", action);
+      const result = next(action);
+      console.log("[Middleware] next state", store.getState());
+      return result;
+    };
+  };
+};
+
+const store =configureStore(reducer,applyMiddleware(logger, thunk))
+
+console.log("Your store is ",store  )
 
 const app=(
-  <Provider store={store}>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App/>
-      </React.StrictMode>
-    </BrowserRouter>
-  </Provider>
+
+  <BrowserRouter>
+    <Provider store={store}>
+    <React.StrictMode>
+      <App/>
+    </React.StrictMode>
+    </Provider>
+  </BrowserRouter>
+  
+ 
+
+// const rootReducer=combineReducers({
+//   main:main_reducer,
+//   drawerAd:drawer_admin_reducer,
+//   drawerSet:drawer_setting_reducer
+// })
+
+// const store= createStore(rootReducer)
+
+// const app=(
+//   <Provider store={store}>
+//     <BrowserRouter>
+//       <React.StrictMode>
+//         <App/>
+//       </React.StrictMode>
+//     </BrowserRouter>
+//   </Provider>
+
 )
 ReactDOM.render(app ,document.getElementById('root'));
 
