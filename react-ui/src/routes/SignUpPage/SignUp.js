@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -23,21 +23,9 @@ import Tab from "@material-ui/core/Tab";
 import OtpWindow from "../../components/OtpWindow/OtpWindow";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
+import SabpaisaCopyRight from '../../components/SabPaisaCopyRight/SabPaisaCopyRight'
+import Test from "../../components/Test/Test";
 
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 // **************************************************************************************************
 
@@ -103,22 +91,55 @@ function FullWidthTabs(props) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [openOtp, setOtp] = React.useState(false);
-  const [orgState, setOrgState]=React.useState(false);
-  const [indiState, setIndiState]=React.useState(false);
+  const [orgState, setOrgState] = React.useState(false);
+  const [indiState, setIndiState] = React.useState(false);
 
-  const toggleOrgState=()=>{
-    if(orgState==false){
+
+  //Organization Form:
+  function useFormInput(initialValue) {
+    const [value, setValue] = useState(initialValue)
+
+    function handleChange(e) {
+      setValue(e.target.value)
+    }
+    return {
+      value: value,
+      onChange: handleChange
+    };
+  }
+  const organizationName = useFormInput("")
+  // const [organizationName,setOrganizationName]=useState('')
+  const registererName = useFormInput("")
+  const designation = useFormInput("")
+  const email = useFormInput("")
+  const numEmployees = useFormInput("")
+  const mobileNo = useFormInput("")
+  const setValueProp = {}
+  // const [mobileNo,setMobileNo]=useState("")
+
+  const onClickNextButton = () => {
+    toggleOrgState()
+    console.log(organizationName, registererName, designation, email, numEmployees, mobileNo)
+  }
+
+  const onClickOrganizationVerify = () => {
+
+  }
+
+
+  const toggleOrgState = () => {
+    if (orgState == false) {
       setOrgState(!orgState)
-    }else if(orgState==true){
+    } else if (orgState == true) {
       setOrgState(!orgState)
     }
     console.log(orgState)
   }
 
-  const toggleIndiState=()=>{
-    if(indiState==false){
+  const toggleIndiState = () => {
+    if (indiState == false) {
       setIndiState(!indiState)
-    }else if(indiState==true){
+    } else if (indiState == true) {
       setIndiState(!indiState)
     }
     console.log(indiState)
@@ -143,332 +164,375 @@ function FullWidthTabs(props) {
     // console.log(index);
   };
 
-function OrganizaionForm(props){
-    if(props.page==false){
-      return(
-        <form className={classes.form} noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12} >
-            <TextField
-              autoComplete="organizationName"
-              name="organizationName"
-              variant="outlined"
-              required
-              fullWidth
-              id="organizationName"
-              label="Name of Organization"
-              autoFocus
-            />
+
+
+  function OrganizaionForm(props) {
+    if (props.page == false) {
+      return (
+      <React.Fragment>
+        <Test/>
+         <Grid container spacing={2} >
+            <Grid item xs={12}  >
+              
+              <TextField
+                {...organizationName}
+                autoComplete="organizationName"
+                name="organizationName"
+                variant="outlined"
+                required
+                fullWidth
+                id="organizationName"
+                label="Name of Organization"
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                {...registererName}
+                variant="outlined"
+                required
+                fullWidth
+                id="registererName"
+                label="Name of Registerer"
+                name="registererName"
+                autoComplete="registererName"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                {...designation}
+                variant="outlined"
+                required
+                fullWidth
+                id="designation"
+                label="Designation of Person"
+                name="designation"
+                autoComplete="designation"
+                onChange={designation.handleChange}
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                {...email}
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Id of Registerer"
+                name="email"
+                autoComplete="email"
+                onChange={email.handleChange}
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                {...numEmployees}
+                variant="outlined"
+                required
+                fullWidth
+                id="numEmployees"
+                label="No. of Employees"
+                name="numEmployees"
+                autoComplete="numEmployees"
+                onChange={numEmployees.handleChange}
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                 {...mobileNo}
+                variant="outlined"
+                required
+                fullWidth
+                id="mobileNo"
+                label="Mobile No."
+                name="mobileNo"
+                autoComplete="mobileNo"
+                onChange={mobileNo.handleChange}
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox value="allowExtraEmails" color="primary" />
+                }
+                label="I have read & agree to the Privacy Policy of SabMeets."
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="registererName"
-              label="Name of Registerer"
-              name="registererName"
-              autoComplete="registererName"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="designation"
-              label="Designation of Person"
-              name="designation"
-              autoComplete="designation"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="email"
-              label="Email Id of Registerer"
-              name="email"
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="numEmployees"
-              label="No. of Employees"
-              name="numEmployees"
-              autoComplete="numEmployees"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox value="allowExtraEmails" color="primary" />
-              }
-              label="I have read & agree to the Privacy Policy of SabMeets."
-            />
-          </Grid>
-        </Grid>
-        <Button
-          // type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          // onClick={props.listen}
-          onClick={toggleOrgState}
-        >
-          Next
+          <Button
+            // type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={onClickNextButton}
+          >
+            Next
         </Button>
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Link href="#" variant="body2">
-              Already have an account? Sign in
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href='/signin' variant="body2">
+                Already have an account? Sign in
             </Link>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+          </React.Fragment>
       );
-    }else if(props.page==true){
-      return(
+    } else if (props.page == true) {
+      return (
         <form className={classes.form} noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12} >
-            <Paper elevation={0}>
-              <Typography variant="h7">
+          <Grid container spacing={2}>
+            <Grid item xs={12} >
+              <Paper elevation={0}>
+                <Typography variant="h7">
                   What is your Organisation type?
               </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="companyType"
-              label="Company Type"
-              name="companyType"
-              autoComplete="companyType"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Paper elevation={0}>
-              <Typography variant="h7">
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="companyType"
+                label="Company Type"
+                name="companyType"
+                autoComplete="companyType"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Paper elevation={0}>
+                <Typography variant="h7">
                   What is your Organisation Domain?
               </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="domainType"
-              label="Domain Type"
-              name="domainType"
-              autoComplete="domainType"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Paper elevation={0}>
-              <Typography variant="h7">
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="domainType"
+                label="Domain Type"
+                name="domainType"
+                autoComplete="domainType"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Paper elevation={0}>
+                <Typography variant="h7">
                   We have Sent an OTP on your Organization mail
               </Typography>
-            </Paper>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <OtpInput
+                separator={
+                  <span>
+                    <strong></strong>
+                  </span>
+                }
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+                numInputs={6}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="refCode"
+                label="Reffral Code (Optional)"
+                name="refCode"
+                autoComplete="refCode"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox value="allowExtraEmails" color="primary" />
+                }
+                label="I have read & agree to the Privacy Policy of SabMeets."
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <OtpInput
-              separator={
-                <span>
-                  <strong></strong>
-                </span>
-              }
-              inputStyle={{
-                width: "3rem",
-                height: "3rem",
-                margin: "0 1rem",
-                fontSize: "2rem",
-                borderRadius: 4,
-                border: "1px solid rgba(0,0,0,0.3)"
-              }}
-              numInputs={6}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="refCode"
-              label="Reffral Code (Optional)"
-              name="refCode"
-              autoComplete="refCode"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox value="allowExtraEmails" color="primary" />
-              }
-              label="I have read & agree to the Privacy Policy of SabMeets."
-            />
-          </Grid>
-        </Grid>
-        <Button
-          // type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          // onClick={props.listen}
-          onClick={toggleOrgState}  
-        >
-          Verify
+          <Button
+            // type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={toggleOrgState}
+          >
+            Back
         </Button>
-        <Grid container justify="flex-end">
-          <Grid item>
-            <Link href="#" variant="body2">
-              Already have an account? Sign in
+          <Button
+            // type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={onClickOrganizationVerify}
+          >
+            Verify
+        </Button>
+
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                Already have an account? Sign in
             </Link>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
       );
     }
-}
+  }
 
 
-function IndividualForm(props){
-  if(props.page==false){
-    return(
-      <form className={classes.form} noValidate>
-      <Grid container spacing={2}>
-        <Grid item xs={12} >
-          <TextField
-            autoComplete="number"
-            name="number"
-            variant="outlined"
-            required
-            fullWidth
-            id="number"
-            label="Mobile Number"
-            autoFocus
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="fullName"
-            label="Full Name"
-            name="fullName"
-            autoComplete="fullName"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="email"
-            label="Email-Id"
-            name="email"
-            autoComplete="email"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            autoComplete="password"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="refCode"
-            label="Reffral Code (Optional)"
-            name="refCode"
-            autoComplete="refCode"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox value="allowExtraEmails" color="primary" />
-            }
-            label="I have read & agree to the Privacy Policy of SabMeets."
-          />
-        </Grid>
-      </Grid>
-      <Button
-        // type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-        // onClick={props.listen}
-        onClick={toggleIndiState}
-      >
-        Register
-      </Button>
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Link href="#" variant="body2">
-            Already have an account? Sign in
-          </Link>
-        </Grid>
-      </Grid>
-    </form>
-    );
-  }else if(props.page==true){
-    return(
-      <form className={classes.form} noValidate>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Paper elevation={0}>
-            <Typography variant="h7">
-                We have Sent an OTP on your Mobile Number
-            </Typography>
-          </Paper>
+  function IndividualForm(props) {
+    if (props.page == false) {
+      return (
+        <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="number"
+                name="number"
+                variant="outlined"
+                required
+                fullWidth
+                id="number"
+                label="Mobile Number"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="fullName"
+                label="Full Name"
+                name="fullName"
+                autoComplete="fullName"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email-Id"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                name="password"
+                autoComplete="password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="refCode"
+                label="Reffral Code (Optional)"
+                name="refCode"
+                autoComplete="refCode"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox value="allowExtraEmails" color="primary" />
+                }
+                label="I have read & agree to the Privacy Policy of SabMeets."
+              />
+            </Grid>
           </Grid>
-        <Grid item xs={12}>
-          <OtpInput
-            separator={
-              <span>
-                <strong></strong>
-              </span>
-            }
-            inputStyle={{
-              width: "3rem",
-              height: "3rem",
-              margin: "0 1rem",
-              fontSize: "2rem",
-              borderRadius: 4,
-              border: "1px solid rgba(0,0,0,0.3)"
-            }}
-            numInputs={6}
-        />
-        </Grid>
-        {/* <Grid item xs={12}>
+
+
+          <Button
+            // type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={toggleIndiState}
+          >
+            Register
+      </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                Already have an account? Sign in
+          </Link>
+            </Grid>
+          </Grid>
+        </form>
+      );
+    } else if (props.page == true) {
+      return (
+        <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Paper elevation={0}>
+                <Typography variant="h7">
+                  We have Sent an OTP on your Mobile Number
+            </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <OtpInput
+                separator={
+                  <span>
+                    <strong></strong>
+                  </span>
+                }
+                inputStyle={{
+                  width: "3rem",
+                  height: "3rem",
+                  margin: "0 1rem",
+                  fontSize: "2rem",
+                  borderRadius: 4,
+                  border: "1px solid rgba(0,0,0,0.3)"
+                }}
+                numInputs={6}
+              />
+            </Grid>
+            {/* <Grid item xs={12}>
           <Paper elevation={0}>
             <Typography variant="h7">
                 What is your Organization type?
             </Typography>
           </Paper>
           </Grid> */}
-        {/* <Grid item xs={12}>
+            {/* <Grid item xs={12}>
           <TextField
             variant="outlined"
             required
@@ -479,74 +543,86 @@ function IndividualForm(props){
             autoComplete="companyType"
           />
         </Grid> */}
-        <Grid item xs={12}>
-          <Paper elevation={0}>
-            <Typography variant="h7">
-                What is your Organization Name?
+            <Grid item xs={12}>
+              <Paper elevation={0}>
+                <Typography variant="h7">
+                  What is your Organization Name?
             </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="organizationName"
-            label="Organization Name"
-            name="organizationName"
-            autoComplete="organizationName"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Paper elevation={0}>
-            <Typography variant="h7">
-                Please enter your Employee ID
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="organizationName"
+                label="Organization Name"
+                name="organizationName"
+                autoComplete="organizationName"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Paper elevation={0}>
+                <Typography variant="h7">
+                  Please enter your Employee ID
             </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="employeeId"
+                label="Employee Id"
+                name="employeeId"
+                autoComplete="employeeId"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox value="allowExtraEmails" color="primary" />
+                }
+                label="I have read & agree to the Privacy Policy of SabMeets."
+              />
+            </Grid>
+          </Grid>
+
+
+          <Button
+            // type="submit"
             fullWidth
-            id="employeeId"
-            label="Employee Id"
-            name="employeeId"
-            autoComplete="employeeId"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox value="allowExtraEmails" color="primary" />
-            }
-            label="I have read & agree to the Privacy Policy of SabMeets."
-          />
-        </Grid>
-        </Grid>
-      
-      <Button
-        // type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-        // onClick={props.listen}
-        onClick={toggleOrgState}  
-      >
-        Send Request
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={toggleIndiState}
+          >
+            Back
       </Button>
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Link href="#" variant="body2">
-            Already have an account? Sign in
+          <Button
+            // type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.listen}
+            onClick={toggleOrgState}
+          >
+            Send Request
+      </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                Already have an account? Sign in
           </Link>
-        </Grid>
-      </Grid>
-    </form>
-    );
+            </Grid>
+          </Grid>
+        </form>
+      );
+    }
   }
-}
 
 
 
@@ -573,15 +649,15 @@ function IndividualForm(props){
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <OrganizaionForm page={orgState}/>
+          <OrganizaionForm page={orgState} />
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <IndividualForm page={indiState}/>
+          <IndividualForm page={indiState} />
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
@@ -644,16 +720,17 @@ function IndividualForm(props){
             <Backdrop show={openOtp} /> */}
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </form>
           <Box mt={8}>
-            <Copyright />
+            <SabpaisaCopyRight />
           </Box>
         </TabPanel>
+
       </SwipeableViews>
     </div>
   );
@@ -661,7 +738,7 @@ function IndividualForm(props){
 
 // **************************************************************************************************
 
-export default function SignUp() {
+function SignUp() {
   const classes = useStyles();
   const [getOtp, setOtp] = React.useState(false);
 
@@ -685,10 +762,31 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
-        <FullWidthTabs listen={listenOtp}/>
+        <FullWidthTabs listen={listenOtp} />
         <OtpWindow show={getOtp} closed={changeOpt} />
         <Backdrop show={getOtp} />
       </div>
     </Container>
   );
 }
+
+
+
+const mapStateToProps = (state) => {
+  console.log(state.auth.auth)
+  return {
+    currentUser: state.auth.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // auth: (data) => {
+    //   dispatch(auth(data));
+    // },
+  };
+};
+
+
+
+export default SignUp

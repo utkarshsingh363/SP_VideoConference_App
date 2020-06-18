@@ -120,13 +120,10 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "grey",
 
-    }
-
-
-
-      color: "black",
     },
-  },
+    color:" black"
+    }
+  
 
 }));
 
@@ -135,6 +132,11 @@ const useStyles = makeStyles((theme) => ({
 function PersistentDrawerLeft(props){
     const classes = useStyles();
     const theme = useTheme();
+
+    const onClickLogoutButton=()=>{
+      localStorage.removeItem('token')
+      window.location="/signin"
+    }
 
     return (
       <div className={classes.root}>
@@ -186,7 +188,7 @@ function PersistentDrawerLeft(props){
                   <Button color="inherit" href="/createroom">
                     Create
                   </Button>
-                  <Button color="inherit">Logout</Button>
+                  <Button color="inherit" onClick={onClickLogoutButton}>Logout</Button>
                 </div>
               </Grid>
             </Grid>
@@ -244,8 +246,10 @@ function PersistentDrawerLeft(props){
         </div>
   
           <Divider />
-  
-          <DrawerView drawerview={props.drawerView} openprofile={props.openProfileDetails}/>
+          
+          {/* Ayush change 15/6/2020 */}
+          {/* <DrawerView drawerview={props.drawerView} openprofile={props.openProfileDetails}/> */}  
+          <DrawerView drawerview={props.drawerView} />
           {/* </div> */}
           <Divider />
         </Drawer>
@@ -255,7 +259,7 @@ function PersistentDrawerLeft(props){
           })}
         >
           <div className={classes.drawerHeader} />
-          <Root profdetails={props.profileDetails} click={props.closeProfileDetails}/>
+          <Root profdetails={props.profileDetails} click={props.closeProfileDetails} openprofile={props.openProfileDetails}/>
         </main>
       </div>
     );

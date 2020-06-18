@@ -19,22 +19,13 @@ import { createBrowserHistory } from 'history';
 import { connect } from "react-redux";
 
 import ProtectedRoute from './components/ProtectedRoutes/ProtectedRoute'
-
-
+import VideoConference from "./routes/VideoConference/VideoConference";
+import Test from "./components/Test/Test";
 
 
 
 // import StoreContext from "./contexts/storeContext";
-
-
-
-
-
-
-
 class App extends Component {
-
-   
   render() {
     
     // console.log("loggedIn User",this.props.currentUser)
@@ -52,7 +43,7 @@ class App extends Component {
             {/* <Route path ='/' exact component={Root}/> */}
             {/* <ProtectedRoute  /> */}
           
-            <ProtectedRoute path="/" exact component={Merged} isLoggedIn={isTokenPresent} /> 
+            <ProtectedRoute path="/" exact component={Merged} isLoggedIn={true} /> 
             
             <Route path="/signin" exact component={SignIn} />
 
@@ -62,6 +53,11 @@ class App extends Component {
             <ProtectedRoute path="/createroom" exact component={CreateRoom} isLoggedIn={isTokenPresent}/>
             <Route path="/joinroom" exact component={JoinRoom} />
             <ProtectedRoute path="/schedulemeeting" exact component={ScheduleMeeting} isLoggedIn={isTokenPresent}/>
+
+            <ProtectedRoute path="/conference/:id/:password"  component={VideoConference} isLoggedIn={true}/>
+
+            <Route path="/test" exact component={Test} />
+
 
             <CreateRoom />
           </Switch>
@@ -73,7 +69,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.auth.auth)
+  // console.log(state.auth.auth)
   return {
     currentUser: state.auth.auth,
   };

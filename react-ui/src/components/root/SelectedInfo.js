@@ -3,11 +3,13 @@ import Paper from "@material-ui/core/Paper";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid, ButtonBase } from "@material-ui/core";
 
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import VideocamRoundedIcon from "@material-ui/icons/VideocamRounded";
 import InfoRoundedIcon from "@material-ui/icons/InfoRounded";
+
+
 
 const useStyles = makeStyles((theme) => ({
   SelectedInfoPaper: {
@@ -46,11 +48,15 @@ function SelectedGroupOrPersonInfo(props) {
             <Typography display="inline">Ayush Rawat</Typography>
           </Grid>
         </Grid>
-
         <Grid item xs={4}>
           <div className={classes.groupActionsButton}>
-            <VideocamRoundedIcon />
-            <InfoRoundedIcon onClick={props.onClickInfoButton} />
+            <ButtonBase onClick={() => { alert("yoyo") }}>
+              <VideocamRoundedIcon />
+            </ButtonBase>
+            <ButtonBase onClick={props.onClickInfoButton}>
+              <InfoRoundedIcon />
+            </ButtonBase>
+
           </div>
         </Grid>
       </Grid>

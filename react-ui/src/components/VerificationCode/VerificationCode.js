@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import OtpInput from "react-otp-input";
 // import OTPInput, { ResendOTP } from "otp-input-react";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -39,6 +39,10 @@ export default function App() {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [count, setCount] = useState(0);
+
+    const [otp,setOtp]=useState(123456)
+
   return (
     // <Container component="main" maxWidth="sm">
     //   <CssBaseline />
@@ -57,7 +61,7 @@ export default function App() {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-          </Grid>
+          </Grid>    
           <Grid item>
             <Typography component="h1" variant="h5">
               Verification Code
@@ -81,23 +85,28 @@ export default function App() {
         direction="column"
       >
         <Grid item>
+          <div>
           <OtpInput
+            numInputs={6}
             separator={
               <span>
                 <strong>.</strong>
               </span>
             }
+            value={otp}
             inputStyle={{
               width: "3rem",
               height: "3rem",
               margin: "0 1rem",
               fontSize: "2rem",
+              fontColor:"black",
               borderRadius: 4,
-              border: "1px solid rgba(0,0,0,0.3)"
+              border: "1px solid rgba(1,0,0,0.3)"
             }}
           />
+          </div>
         </Grid>
-        <Grid item>
+        <Grid item> 
           <Button
             type="submit"
             fullWidth

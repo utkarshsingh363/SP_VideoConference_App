@@ -14,8 +14,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
+// import axios from 'axios'
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import PropTypes from "prop-types";
@@ -137,7 +137,7 @@ function FullWidthTabs(props) {
         mobileNumber: String(mobile),
         password: String(password),
       };
-      console.log("yo", data);
+      // console.log("yo", data);
       console.log(props.auth)
       props.auth(data);
       // props.increment();
@@ -224,7 +224,7 @@ function FullWidthTabs(props) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -284,7 +284,7 @@ function FullWidthTabs(props) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -341,7 +341,7 @@ function FullWidthTabs(props) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -359,10 +359,10 @@ function FullWidthTabs(props) {
 
 // **************************************************************************************************
 
-*****************************************************************************************
+// *****************************************************************************************
 
 
- function SignUp(props) {
+ function SignIn(props) {
 
   const classes = useStyles();
   
@@ -406,4 +406,4 @@ const mapDispatchToProps = (dispatch) => {
 
 //state.entities.bugs.list
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp)
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn)

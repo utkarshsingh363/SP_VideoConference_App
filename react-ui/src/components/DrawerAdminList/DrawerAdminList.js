@@ -60,7 +60,12 @@ function DrawerAdminList(props){
                 />
               </Grid>
               <Grid item xs={1}>
-                <AccountCircleIcon onClick={props.openprofile} />
+                {/* <AccountCircleIcon onClick={props.openprofile} />
+                <ProfileWindow show={props.openProfile} closed={props.profileWindowClose} />
+                <Backdrop show={props.openProfile} /> */}
+
+                {/* // Ayush Change 15/6/2020 */}
+                <AccountCircleIcon />
                 <ProfileWindow show={props.openProfile} closed={props.profileWindowClose} />
                 <Backdrop show={props.openProfile} />
               </Grid>
