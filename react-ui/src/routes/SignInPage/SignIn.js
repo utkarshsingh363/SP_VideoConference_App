@@ -1,5 +1,4 @@
-
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -16,7 +15,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 // import axios from 'axios'
 // import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
@@ -24,20 +23,19 @@ import SwipeableViews from "react-swipeable-views";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-import axios from 'axios'
+import axios from "axios";
 
 import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
 
-import SabpaisaCopyRight from '../../components/SabPaisaCopyRight/SabPaisaCopyRight'
+import SabpaisaCopyRight from "../../components/SabPaisaCopyRight/SabPaisaCopyRight";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { connect, useDispatch } from "react-redux";
 
 import { auth } from "../../store/auth";
 
-
-// Added SabpaisaCopyRight Component 
+// Added SabpaisaCopyRight Component
 
 // function Copyright() {
 //   return (
@@ -53,9 +51,6 @@ import { auth } from "../../store/auth";
 // }
 
 // **************************************************************************************************
-
-
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,38 +75,38 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 500
+    width: 500,
   },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 function FullWidthTabs(props) {
@@ -122,33 +117,45 @@ function FullWidthTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(newValue);
-    
   };
 
-  const handleChangeIndex = index => {
+  const handleChangeIndex = (index) => {
     setValue(index);
     console.log(index);
-  
   };
 
-  const onClickLoginButton=()=>{
-       // console.log(mobile);
-       const data = {
+  const onClickLoginButton = (type) => {
+    // console.log(mobile);
+
+    if (type == "user") {
+      const data_input = {
         mobileNumber: String(mobile),
         password: String(password),
       };
-      // console.log("yo", data);
-      console.log(props.auth)
-      props.auth(data);
-      // props.increment();
+      console.log(data_input, type);
+      props.auth(data_input, type);
+    } else if (type == "organisation") {
+      const data_input = {
+        emailId: String(email),
+        password: String(password),
+      };
+      console.log(data_input, type);
+      props.auth(data_input, type);
+    } else {
+      alert("Unhandled case");
+    }
 
-  }
+    // console.log("yo", data);
+    console.log(props.auth);
 
-  const [mobile,setMobile]=useState("")
-  const [password,setPassword]=useState("")
+    // props.increment();
+  };
+
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const notify = (message) => toast(message);
-
 
   return (
     <div className={classes.root}>
@@ -172,7 +179,6 @@ function FullWidthTabs(props) {
         index={value}
         // onChangeIndex={handleChangeIndex}
       >
-       
         {/*Tab for organization*/}
 
         <TabPanel value={value} index={0} dir={theme.direction}>
@@ -182,12 +188,12 @@ function FullWidthTabs(props) {
               margin="normal"
               required
               fullWidth
-              id="mobile"
-              label="Mobile No."
-              name="mobile"
-              autoComplete="mobile"
+              id="email"
+              label="Email Id"
+              name="email"
+              autoComplete="email"
               autoFocus
-              onChange={(e)=>setMobile(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -199,7 +205,7 @@ function FullWidthTabs(props) {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -210,10 +216,11 @@ function FullWidthTabs(props) {
               fullWidth
               variant="contained"
               color="primary"
-
               // className={classes.submit}
 
-              onClick={onClickLoginButton}
+              onClick={() => {
+                onClickLoginButton("organisation");
+              }}
             >
               Login
             </Button>
@@ -234,8 +241,8 @@ function FullWidthTabs(props) {
             <SabpaisaCopyRight />
           </Box>
         </TabPanel>
-        
-         {/*Tab for individual*/}
+
+        {/*Tab for individual*/}
 
         <TabPanel value={value} index={1} dir={theme.direction}>
           <form className={classes.form} noValidate>
@@ -249,7 +256,7 @@ function FullWidthTabs(props) {
               name="phone"
               autoComplete="phone"
               autoFocus
-              onChange={(e)=>setMobile(e.target.value)}
+              onChange={(e) => setMobile(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -261,7 +268,7 @@ function FullWidthTabs(props) {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -273,7 +280,9 @@ function FullWidthTabs(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={onClickLoginButton}
+              onClick={() => {
+                onClickLoginButton("user");
+              }}
             >
               Login
             </Button>
@@ -294,9 +303,9 @@ function FullWidthTabs(props) {
             <SabpaisaCopyRight />
           </Box>
         </TabPanel>
-        
+
         {/*Tab for guests*/}
-        
+
         <TabPanel value={value} index={2} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -351,7 +360,6 @@ function FullWidthTabs(props) {
             <SabpaisaCopyRight />
           </Box>
         </TabPanel>
-     
       </SwipeableViews>
     </div>
   );
@@ -361,19 +369,15 @@ function FullWidthTabs(props) {
 
 // *****************************************************************************************
 
-
- function SignIn(props) {
-
+function SignIn(props) {
   const classes = useStyles();
-  
 
-    return (
-    
+  return (
     <Container component="main" maxWidth="xs">
       {/* {console.log("this is the props", props)} */}
       <CssBaseline />
-      {(props.currentUser.currentUser)?props.history.replace("/"):""}
-     
+      {props.currentUser.currentUser ? props.history.replace("/") : ""}
+
       <div className={classes.paper}>
         <div>
           <img src={SabMeetsLogo} width="100" height="100" />
@@ -389,7 +393,7 @@ function FullWidthTabs(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.auth.auth)
+  console.log(state);
   return {
     currentUser: state.auth.auth,
   };
@@ -397,13 +401,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (data) => {
-      dispatch(auth(data));
+    auth: (data, type) => {
+      dispatch(auth(data, type));
     },
   };
 };
 
-
 //state.entities.bugs.list
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -1,18 +1,17 @@
-import axios from 'axios'
-import { toast } from 'react-toastify';
-
+import axios from "axios";
+import { toast } from "react-toastify";
+import { produce } from "immer";
 
 const initialState = {
-  auth: {}
-}
+  auth: {},
+};
 //action type
 
 const authRequested = "authRequested";
 const authRecieved = "authRecieved";
 const authRequestFailed = "authRequestFailed";
 
-
-//Toast 
+//Toast
 
 const notify = (message) => toast(message);
 
@@ -36,38 +35,51 @@ export const authUserRequestFailed = (error) => {
   };
 };
 
-export const auth = (data) => {
-  
+export const auth = (data, signInType) => {
   return (dispatch, getState) => {
     // alert("yo4");
     // console.log(data);
     dispatch(authUserRequested());
-    axios
-      .post("https://wallet.sabpaisa.in/sabMeets/login", {
-        mobileNumber: data.mobileNumber,
-        password: data.password,
-      })
-      .then((response) => {
-        const currentUser = response.data;
-        // alert("yoyoy34");
+    if (signInType == "organisation") {
+      axios
+        .post("https://wallet.sabpaisa.in/sabMeets/ologin", {
+          emailId: data.emailId,
+          password: data.password,
+        })
+        .then((response) => {
+          const currentUser = response.data;
+          // alert("yoyoy34");
 
-        dispatch(authUserRecieved(currentUser));
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
+          dispatch(authUserRecieved(currentUser));
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          // alert(errorMessage);
+          dispatch(authUserRequestFailed(error));
+        });
+    } else if (signInType == "user") {
+      axios
+        .post("https://wallet.sabpaisa.in/sabMeets/login", {
+          mobileNumber: data.mobileNumber,
+          password: data.password,
+        })
+        .then((response) => {
+          const currentUser = response.data;
+          // alert("yoyoy34");
 
-        // alert(errorMessage);
-        dispatch(authUserRequestFailed(error));
-      });
+          dispatch(authUserRecieved(currentUser));
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          // alert(errorMessage);
+          dispatch(authUserRequestFailed(error));
+        });
+    }
   };
 };
 
-
-
-
 //Reducer
 const authReducer = (state = initialState, action) => {
-
   if (action.type == "authRequested") {
     return {
       ...state,
@@ -75,16 +87,19 @@ const authReducer = (state = initialState, action) => {
     };
   }
   if (action.type == "authRecieved") {
-    if (action.payload.status == "Success") {
-      localStorage.setItem('token', action.payload.token)
-      toast(action.payload.status)
+    if (action.payload.response == "Success") {
+      localStorage.setItem("token", "active");
+      localStorage.setItem("userMobile", action.payload.mobileNumber);
+      localStorage.setItem("userEmail", action.payload.emailId);
+      localStorage.setItem("userType", action.payload.userType);
+      toast(action.payload.status);
       return {
         ...state,
         loading: false,
         auth: { currentUser: action.payload },
       };
     } else {
-      toast(action.payload.status)
+      toast(action.payload.status);
       return {
         ...state,
         loading: false,
@@ -93,7 +108,7 @@ const authReducer = (state = initialState, action) => {
     }
   }
   if (action.type == "authRequestFailed") {
-    toast(action.payload.message+"=>Have to enable CORS at Backend ")
+    toast(action.payload.message + "=>Have to enable CORS at Backend ");
     return {
       ...state,
       loading: false,
@@ -103,4 +118,4 @@ const authReducer = (state = initialState, action) => {
   return state;
 };
 
-export default authReducer
+export default authReducer;
