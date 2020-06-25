@@ -5,11 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker'; 
 import {BrowserRouter} from 'react-router-dom'
 
-import {createStore, combineReducers} from 'redux'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
 // import reducer from './store/reducer'
-import main_reducer from './store/components/main_reducer'
-import drawer_admin_reducer from './store/components/drawer_admin_reducer'
-import drawer_setting_reducer from './store/components/drawer_setting_reducer'
+import {main_reducer} from './store/components/main_reducer'
+import {drawer_admin_reducer} from './store/components/drawer_admin_reducer'
+import {drawer_setting_reducer} from './store/components/drawer_setting_reducer'
 import {Provider} from 'react-redux'
 
 const rootReducer=combineReducers({
@@ -18,7 +18,18 @@ const rootReducer=combineReducers({
   drawerSet:drawer_setting_reducer
 })
 
-const store= createStore(rootReducer)
+const logger = store => {
+  return next => {
+    return action =>{
+      console.log('[Middleware] Dispaching', action)
+      const result = next(action)
+      console.log('[Middleware] next state',store.getState())
+      return result
+    }
+  }
+}
+
+const store= createStore(rootReducer, applyMiddleware(logger))
 
 const app=(
   <Provider store={store}>

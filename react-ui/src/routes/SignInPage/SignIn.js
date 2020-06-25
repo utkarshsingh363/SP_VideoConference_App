@@ -22,14 +22,16 @@ import SwipeableViews from "react-swipeable-views";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
+
+
 import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://sabpaisa.in/">
+        SabPaisa
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -72,6 +74,10 @@ function a11yProps(index) {
   };
 }
 
+const api=axios.create({
+  baseURL:'https://wallet.sabpaisa.in/sabMeets'
+})
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -96,10 +102,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+toast.configure()
 function FullWidthTabs() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  
+  const [mobileNumber,setMobile]=useState("")
+  const [password,setPassword]=useState("")
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -110,27 +120,31 @@ function FullWidthTabs() {
     // console.log(index);
   };
 
-  const onClickLoginButton=(props)=>{
-    axios.post("https://wallet.sabpaisa.in/sabMeets/login",{ mobileNumber: mobile, password: password })
-      .then((response) => {
-        console.log(response)
-        if(response.data.status=="Success"){
-          // props.history.replace('/')
+  const notify = (message) => {
+    toast(message,{position:toast.POSITION.TOP_CENTER})
+  };  
+
+  const onClickLoginButton= async (props)=>{
+    const data={
+      mobileNumber:mobileNumber,
+      password:password
+    }
+    console.log(data)
+
+    api.post('/login',data)
+      .then((response)=>{
+        console.log(response.data)
+        if(response.data.status==='Success'){
           window.location.replace('/')
         }
-        if(response.data.status=="Check the Credentials"){
+        if(response.data.status==='Check the Credentials'){
           notify("Incorrect credentials")
-        }  
+        }
       })
-      .catch(error=>{
-        notify("Some error occured")
-      });
+      .catch((error)=> console.log(error));
+    
   }
 
-  const [mobile,setMobile]=useState("")
-  const [password,setPassword]=useState("")
-
-  const notify = (message) => toast(message);
 
   return (
     <div className={classes.root}>
@@ -145,7 +159,6 @@ function FullWidthTabs() {
       >
         <Tab label="ORGANIZATION" {...a11yProps(0)} />
         <Tab label="INDIVIDUAL" {...a11yProps(1)} />
-        <Tab label="GUEST" {...a11yProps(2)} />
       </Tabs>
       {/* </AppBar> */}
       <SwipeableViews
@@ -160,10 +173,10 @@ function FullWidthTabs() {
               margin="normal"
               required
               fullWidth
-              id="mobile"
-              label="Mobile No."
-              name="mobile"
-              autoComplete="mobile"
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
               autoFocus
               onChange={(e)=>setMobile(e.target.value)}
             />
@@ -195,12 +208,12 @@ function FullWidthTabs() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotpassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -217,10 +230,10 @@ function FullWidthTabs() {
               margin="normal"
               required
               fullWidth
-              id="phone"
+              id="mobileNumber"
               label="Mobile No"
-              name="phone"
-              autoComplete="phone"
+              name="mobileNumber"
+              autoComplete="mobileNumber"
               autoFocus
               onChange={(e)=>setMobile(e.target.value)}
             />
@@ -252,66 +265,13 @@ function FullWidthTabs() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotpassword" variant="body2">
+                {/* onClick={forgotPasswordWindowOpen} */}
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="phone"
-              label="Mobile No"
-              name="phone"
-              autoComplete="phone"
-              autoFocus
-            />
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            /> */}
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Continue
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

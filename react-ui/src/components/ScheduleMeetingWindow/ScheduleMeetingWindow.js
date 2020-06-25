@@ -4,13 +4,23 @@ import "./ScheduleMeetingWindow.css";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import CancelIcon from '@material-ui/icons/Cancel';
+    import CancelIcon from '@material-ui/icons/Cancel';
 import TextField from "@material-ui/core/TextField";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 //Core Imports
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid, responsiveFontSizes } from "@material-ui/core";
+import MaterialTable from 'material-table';
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import {produce} from 'immer'
+
+
+const api=axios.create({
+    baseURL:'https://wallet.sabpaisa.in/sabMeets'
+  })
 
 
 const useStyles = makeStyles({
@@ -18,6 +28,124 @@ const useStyles = makeStyles({
       flexGrow: 1,
     },
   });
+
+  //************************************************************************** */
+
+class MaterialTableDemo extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            activeUser:"7259649794",
+            meetingList:null,
+            state:{
+                columns: [
+                    { title: 'ID', field: 'meetingId' },
+                    { title: 'Title', field: 'meetingTitle' },
+                    { title: 'Name', field: 'meetingName' },
+                    { title: 'Start Time', field: 'scheduledTime', type: 'datetime' },
+                    { title: 'End Time', field: 'scheduleEndTime', type: 'datetime' },
+                ],
+                data: [],
+            }
+        }
+    }
+    componentWillMount(){
+        var addtoList=[]   
+        api.post(`/fetchMeetingByUser?user=${this.state.activeUser}`)
+        .then((response)=>{
+            response.data.fetchMeetingResponse.map((res)=>{
+                addtoList.push({
+                    "meetingId":res.meetingId,
+                    "meetingName":res.meetingName,
+                    "meetingTitle":res.meetingTitle,
+                    "scheduledTime":res.scheduledTime,
+                    "scheduleEndTime":res.scheduleEndTime
+                })
+                // console.log(addtoList)
+            })
+            this.setState({...this.state.state,data:addtoList})
+            // console.log(this.state.state.data)
+        })
+        .catch((error)=>console.log(error))
+    }
+
+    componentDidMount(){
+        console.log(this.state.state.data)
+        console.log("*****************")
+    }
+
+    // React.useEffect(()=>{
+    //     api.post(`/fetchMeetingByUser?user=${activeUser}`)
+    //         .then((response)=>{
+    //             response.data.fetchMeetingResponse.map((res)=>{
+    //                 setState({
+    //                     data: [...state.data,
+    //                         {
+    //                             "meetingId":res.meetingId,
+    //                             "meetingName":res.meetingName,
+    //                             "meetingTitle":res.meetingTitle,
+    //                             "scheduledTime":res.scheduledTime,
+    //                             "scheduleEndTime":res.scheduleEndTime
+    //                         }
+    //                     ]
+    //                 }
+    //                 )
+    //                 console.log(state.data)
+    //             })
+    //         })
+    //         .catch((error)=>console.log(error))
+    // },state.data)
+  
+    render(){
+    return (
+      <MaterialTable
+        title="All your Meetings"
+        columns={this.state.columns}
+        data={this.state.data}
+        editable={{
+        //   onRowAdd: (newData) =>
+        //     new Promise((resolve) => {
+        //       setTimeout(() => {
+        //         resolve();
+        //         setState((prevState) => {
+        //           const data = [...prevState.data];
+        //           data.push(newData);
+        //           return { ...prevState, data };
+        //         });
+        //       }, 600);
+        //     }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+                if (oldData) {
+                  this.setState((prevState) => {
+                    const data = [...prevState.data];
+                    data[data.indexOf(oldData)] = newData;
+                    return { ...prevState, data };
+                  });
+                }
+              }, 600);
+            }),
+        //   onRowDelete: (oldData) =>
+        //     new Promise((resolve) => {
+        //       setTimeout(() => {
+        //         resolve();
+        //         setState((prevState) => {
+        //           const data = [...prevState.data];
+        //           data.splice(data.indexOf(oldData), 1);
+        //           return { ...prevState, data };
+        //         });
+        //       }, 600);
+        //     }),
+        }}
+      />
+    );
+  }}
+
+
+  //************************************************************************** */
+
 
 export default function ScheduleWindowWindow(props) {
     const classes = useStyles();
@@ -37,9 +165,6 @@ export default function ScheduleWindowWindow(props) {
     //*********************************************** */
 
     const ScheduleMeetingForm=()=>{
-        const classes = useStyles();
-        const theme = useTheme();
-
         if(tab===2){
             return(
                 <Grid container xs={12} spacing={5} justify='center'>
@@ -165,40 +290,16 @@ export default function ScheduleWindowWindow(props) {
             )
         }else if(tab===3){
             return(
-                <Grid container xs={12} spacing={5} justify='center'>
-                <Grid item xs={6}>
-                    <TextField
-                        autoComplete="meetingRoom"
-                        name="meetingRoom"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="meetingRoom"
-                        label="Meeting Room"
-                        autoFocus
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField
-                        autoComplete="password"
-                        name="password"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="password"
-                        label="Password(Optional)"
-                        autoFocus
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                    <Button variant="contained" color="primary">
-                        Join Room
-                    </Button>
+                <Grid container xs justify='center'>
+                <Grid item xs>
+                    <MaterialTableDemo />
                 </Grid>
             </Grid>
             )
         }
     }
+    
+
 
 
 
@@ -232,7 +333,7 @@ export default function ScheduleWindowWindow(props) {
                 >
                     <Tab label="Create" onClick={()=>handleTab(1)}/>
                     <Tab label="Schedule Meeting" onClick={()=>handleTab(2)}/>
-                    <Tab label="Join" onClick={()=>handleTab(3)}/>
+                    <Tab label="All Meetings" onClick={()=>handleTab(3)}/>
                 </Tabs>
             </Paper>
           </Grid>

@@ -5,21 +5,45 @@ const initialState={
     openSettingTab:true
 }
 
+//action type
+const HANDLE_SETTING_TAB= 'HANDLE_SETTING_TAB'
+const OPEN_SETTING_WINDOW='OPEN_SETTING_WINDOW'
+const CLOSE_SETTING_WINDOW='CLOSE_SETTING_WINDOW'
 
-const drawer_setting_reducer= (state=initialState, action)=>{
+//actions
+export function handleSettingTab(){
+    return{
+        type:HANDLE_SETTING_TAB  
+    }
+}
+
+export function settingWindowOpen(){
+    return{
+        type:OPEN_SETTING_WINDOW
+    }
+}
+
+export function settingWindowClose(){
+    return{
+        type:CLOSE_SETTING_WINDOW 
+    }
+}
+
+//reducers
+export const  drawer_setting_reducer= (state=initialState, action)=>{
     switch(action.type){
-        case 'HANDLE_SETTING_TAB':
+        case HANDLE_SETTING_TAB:
             const currentHandleSetting=state.openSettingTab
             return{
                 ...state,
                 openPrivateGroupTab:!currentHandleSetting
             }
-        case 'OPEN_SETTING_WINDOW':
+        case OPEN_SETTING_WINDOW:
             return{
                 ...state,
                 openSetting:true
             }
-        case 'CLOSE_SETTING_WINDOW':
+        case CLOSE_SETTING_WINDOW:
             return{
                 ...state,
                 openSetting:false
@@ -28,4 +52,4 @@ const drawer_setting_reducer= (state=initialState, action)=>{
     }
 }
 
-export default drawer_setting_reducer
+

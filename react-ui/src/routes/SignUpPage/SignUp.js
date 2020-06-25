@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
+import MenuItem from '@material-ui/core/MenuItem';
 import OtpInput from "react-otp-input";
 
 import PropTypes from "prop-types";
@@ -26,12 +27,36 @@ import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
 
 
 
+const numOfEmployees = [
+  {
+    value: '0-50',
+    label: '0 to 50',
+  },
+  {
+    value: '50-100',
+    label: '50 to 100',
+  },
+  {
+    value: '100-500',
+    label: '100 to 500',
+  },
+  {
+    value: '500-1000',
+    label: '500 to 1000',
+  },
+  {
+    value: '1000+',
+    label: '1000+',
+  }
+];
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://sabpaisa.in/">
+        SabPaisa
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -143,7 +168,26 @@ function FullWidthTabs(props) {
     // console.log(index);
   };
 
+
+
 function OrganizaionForm(props){
+  const [orgName,setOrgName]=React.useState('')
+  const [registererName,setRegistererName]=React.useState('')
+  const [registererDesignation,setDesignation]=React.useState('')
+  const [registererEmail,setEmail]=React.useState('')
+  const [registererMobile,setMobile]=React.useState('')
+  const [numEmployees,setNumOfEmployee]=React.useState('0 to 50')
+
+  const onSubmit=()=>{
+    console.log({
+      "OrganizationName":orgName,
+      "RegistererName":registererName,
+      "Designation":registererDesignation,
+      "RegistererEmail":registererEmail,
+      "RegistererMobile":registererMobile,
+      "NumberOfEmployees":numEmployees
+    })
+  }
     if(props.page==false){
       return(
         <form className={classes.form} noValidate>
@@ -157,7 +201,9 @@ function OrganizaionForm(props){
               fullWidth
               id="organizationName"
               label="Name of Organization"
-              autoFocus
+              // autoFocus
+              value={orgName}
+              onChange={(e)=>setOrgName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -169,6 +215,9 @@ function OrganizaionForm(props){
               label="Name of Registerer"
               name="registererName"
               autoComplete="registererName"
+              value={registererName}
+              // autoFocus
+              onChange={e=>setRegistererName(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -179,6 +228,8 @@ function OrganizaionForm(props){
               id="designation"
               label="Designation of Person"
               name="designation"
+              value={registererDesignation}
+              onChange={e=>setDesignation(e.target.value)}
               autoComplete="designation"
             />
           </Grid>
@@ -190,6 +241,8 @@ function OrganizaionForm(props){
               id="email"
               label="Email Id of Registerer"
               name="email"
+              value={registererEmail}
+              onChange={e=>setEmail(e.target.value)}
               autoComplete="email"
             />
           </Grid>
@@ -198,11 +251,34 @@ function OrganizaionForm(props){
               variant="outlined"
               required
               fullWidth
+              id="mobile"
+              label="Mobile number of Registerer"
+              name="mobile"
+              value={registererMobile}
+              onChange={e=>setMobile(e.target.value)}
+              autoComplete="mobile"
+            />
+          </Grid>
+          <Grid item xs>
+            <TextField
               id="numEmployees"
-              label="No. of Employees"
               name="numEmployees"
               autoComplete="numEmployees"
-            />
+              select
+              label="No. of Employees"
+              required
+              fullWidth
+              value={numEmployees}
+              onChange={e=>setNumOfEmployee(e.target.value)}
+              helperText="Please select your Organization's size"
+              variant="filled"
+            >
+              {numOfEmployees.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
@@ -221,6 +297,8 @@ function OrganizaionForm(props){
           className={classes.submit}
           // onClick={props.listen}
           onClick={toggleOrgState}
+          // onClick={onSubmit}
+          
         >
           Next
         </Button>
@@ -303,6 +381,17 @@ function OrganizaionForm(props){
               variant="outlined"
               required
               fullWidth
+              id="password"
+              label="Password"
+              name="password"
+              autoComplete="password"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
               id="refCode"
               label="Reffral Code (Optional)"
               name="refCode"
@@ -325,7 +414,8 @@ function OrganizaionForm(props){
           color="primary"
           className={classes.submit}
           // onClick={props.listen}
-          onClick={toggleOrgState}  
+          // onClick={toggleOrgState}  
+          onClick={onSubmit}
         >
           Verify
         </Button>
@@ -393,14 +483,21 @@ function IndividualForm(props){
           />
         </Grid>
         <Grid item xs={12}>
+          <Paper elevation={0}>
+            <Typography variant="h7">
+                What is your Organization Name?
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             required
             fullWidth
-            id="refCode"
-            label="Reffral Code (Optional)"
-            name="refCode"
-            autoComplete="refCode"
+            id="organizationName"
+            label="Organization Name"
+            name="organizationName"
+            autoComplete="organizationName"
           />
         </Grid>
         <Grid item xs={12}>
@@ -425,7 +522,7 @@ function IndividualForm(props){
       </Button>
       <Grid container justify="flex-end">
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link href="/signin" variant="body2">
             Already have an account? Sign in
           </Link>
         </Grid>
@@ -461,42 +558,7 @@ function IndividualForm(props){
             numInputs={6}
         />
         </Grid>
-        {/* <Grid item xs={12}>
-          <Paper elevation={0}>
-            <Typography variant="h7">
-                What is your Organization type?
-            </Typography>
-          </Paper>
-          </Grid> */}
-        {/* <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="companyType"
-            label="Company Type"
-            name="companyType"
-            autoComplete="companyType"
-          />
-        </Grid> */}
-        <Grid item xs={12}>
-          <Paper elevation={0}>
-            <Typography variant="h7">
-                What is your Organization Name?
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="organizationName"
-            label="Organization Name"
-            name="organizationName"
-            autoComplete="organizationName"
-          />
-        </Grid>
+
         <Grid item xs={12}>
           <Paper elevation={0}>
             <Typography variant="h7">
@@ -513,6 +575,28 @@ function IndividualForm(props){
             label="Employee Id"
             name="employeeId"
             autoComplete="employeeId"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="refCode"
+            label="Reffral Code (Optional)"
+            name="refCode"
+            autoComplete="refCode"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="password"
+            label="Password"
+            name="password"
+            autoComplete="password"
           />
         </Grid>
         <Grid item xs={12}>
@@ -538,7 +622,7 @@ function IndividualForm(props){
       </Button>
       <Grid container justify="flex-end">
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link href="/signin" variant="body2">
             Already have an account? Sign in
           </Link>
         </Grid>
@@ -587,29 +671,6 @@ function IndividualForm(props){
         <TabPanel value={value} index={2} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -621,12 +682,44 @@ function IndividualForm(props){
                   autoComplete="phone"
                 />
               </Grid>
+              <Grid item xs={12} >
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="fullName"
+                  label="Full Name"
+                  name="fullName"
+                  autoComplete="name"
+                />
+              </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email-ID"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Paper elevation={0}>
+                  <Typography variant="h7">
+                      Name of Organization Invited you?
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="organizationName"
+                  label="Organization Name"
+                  name="organizationName"
+                  autoComplete="organizationName"
                 />
               </Grid>
             </Grid>
@@ -638,13 +731,13 @@ function IndividualForm(props){
               className={classes.submit}
               onClick={props.listen}
             >
-              Sign Up
+              Send OTP
             </Button>
             {/* <OtpWindow show={openOtp} closed={otpClose} />
             <Backdrop show={openOtp} /> */}
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

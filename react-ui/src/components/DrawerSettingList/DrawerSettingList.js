@@ -15,6 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 //Component Imports
 import SettingWindow from "../../components/SettingWindow/SettingWindow";
 import Backdrop from "../../components/Backdrop/Backdrop";
+import * as actionCreators from '../../store/components/drawer_setting_reducer'
 
 const useStyles = makeStyles(theme => ({
     nested: {
@@ -78,9 +79,9 @@ const mapStateToProps= state=>{
 
 const mapDispatchToProps = dispatch =>{
   return{
-    handleSettingTab: ()=>dispatch({type:'HANDLE_SETTING_TAB'}),
-    settingWindowOpen: ()=>dispatch({type:'OPEN_SETTING_WINDOW'}),
-    settingWindowClose: ()=>dispatch({type:'CLOSE_SETTING_WINDOW'})
+    handleSettingTab: ()=>dispatch(actionCreators.handleSettingTab()),
+    settingWindowOpen: ()=>dispatch(actionCreators.settingWindowOpen()),
+    settingWindowClose: ()=>dispatch(actionCreators.settingWindowClose())
     
   }
 }

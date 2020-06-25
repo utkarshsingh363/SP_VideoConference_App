@@ -13,13 +13,14 @@ import {Route,Switch} from 'react-router-dom'
 
 // import Root from './routes/root/root'
 import Merged from './routes/merged/merged'
+import ForgotPasswordWindow from './components/ForgotPasswordWindow/ForgotPasswordWindow'
 
 
 
 class App extends Component {
   render(){
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor:'white'}}>
       {/* <Merged /> */}
       {/* <div className="layout-header">
         <BackToTop/>
@@ -42,6 +43,7 @@ class App extends Component {
           <Route path ='/' exact component={Merged}/>
           <Route path ='/signin' exact component={SignIn}/>
           <Route path ='/signup' exact component={SignUp}/>
+          <Route path ='/forgotpassword' exact component={ForgotPasswordWindow}/>
           <Route path ='/launchconf'  component={MainWindow}/>
           <Route path ='/createroom' exact component={CreateRoom}/>
           <Route path ='/joinroom' exact component={JoinRoom}/>

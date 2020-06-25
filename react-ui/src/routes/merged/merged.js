@@ -19,6 +19,7 @@ import Root from "../root/root";
 import DrawerView from '../../components/DrawerView/DrawerView'
 import ScheduleMeetingWindow from '../../components/ScheduleMeetingWindow/ScheduleMeetingWindow'
 import Backdrop from '../../components/Backdrop/Backdrop'
+import * as actionCreators from '../../store/components/main_reducer'
 
 const drawerWidth = 300;
 
@@ -255,15 +256,16 @@ const mapStateToProps= state=>{
 
 const mapDispatchToProps = dispatch =>{
   return{
-    handleDrawerOpen: ()=>dispatch({type:'OPEN_DRAWER'}),
-    handleDrawerClose: ()=>dispatch({type:'CLOSE_DRAWER'}),
-    selectDrawerAdminView: ()=>dispatch({type:'SELECT_DRAWER_ADMINVIEW'}),
-    selectDrawerSettingView: ()=>dispatch({type:'SELECT_DRAWER_SETTINGVIEW'}),
-    openProfileDetails: ()=>dispatch({type:'OPEN_PROFILE_DETAILS'}),
-    closeProfileDetails: ()=>dispatch({type:'CLOSE_PROFILE_DETAILS'}),
-    scheduleMeetingWindowOpen: ()=>dispatch({type:'OPEN_SCHEDULEMEETING_WINDOW'}),
-    scheduleMeetingWindowClose: ()=>dispatch({type:'CLOSE_SCHEDULEMEETING_WINDOW'})
+    handleDrawerOpen: ()=>dispatch(actionCreators.handleDrawerOpen()),
+    handleDrawerClose: ()=>dispatch(actionCreators.handleDrawerClose()),
+    selectDrawerAdminView: ()=>dispatch(actionCreators.selectDrawerAdminView()),
+    selectDrawerSettingView: ()=>dispatch(actionCreators.selectDrawerSettingView()),
+    openProfileDetails: ()=>dispatch(actionCreators.openProfileDetails()),
+    closeProfileDetails: ()=>dispatch(actionCreators.closeProfileDetails()),
+    scheduleMeetingWindowOpen: ()=>dispatch(actionCreators.scheduleMeetingWindowOpen()),
+    scheduleMeetingWindowClose: ()=>dispatch(actionCreators.scheduleMeetingWindowClose())
   }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(PersistentDrawerLeft);
+

@@ -8,6 +8,9 @@ import InputBase from '@material-ui/core/InputBase';
 import { Typography, Grid } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 
+//Redux exports
+import { connect } from 'react-redux'
+
 //Icon Imports
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -16,6 +19,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Ayush from "../../static/img/profileTest/Ayush.jpg";
 import SP from '../../static/img/sabmeets.jpeg'
 import "./DirectMessageWindow.css";
+import * as actionCreators from '../../store/components/drawer_admin_reducer'
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -57,14 +61,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function DirectMessageWindow(props) {
+function DirectMessageWindow(props) {
   const classes = useStyles();
   const cssClasses = [
     "dmWindow",
     props.show ? "dmWindowOpen" : "dmnWindowClosed"
   ];
 
-  return (
+  return (  
     <div className={cssClasses.join(" ")}>
       <Grid container xs={12} spacing={5}  >
         <Grid item xs={12}>
@@ -92,96 +96,33 @@ export default function DirectMessageWindow(props) {
 
         <Grid item xs={12}>
           <Grid container s={12} xs={12} spacing={3} style={{justifyContent:'space-around'}} >
-            <Grid item s={6} xs={6}>
-              <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
-                    <img src={SP} width="100%" height="100%" />
-                  </Grid>
-                  <Grid item s={8} xs={12}>
-                    <CardContent>
-                    <Typography>Utkarsh Singh</Typography>
-                    <Typography>Trainee Data Science</Typography>
-                    <Typography>utkarshsingh363@gmail.com</Typography>
-                    </CardContent> 
-                  </Grid> 
-                  <Grid item xs={12}>
-                    <Button variant="contained" size="small" color="primary" >
-                      Add to List
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-
-            <Grid item s={6} xs={6}>
-              <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
-                    <img src={Ayush} width="100%" height="100%" />
-                  </Grid>
-                  <Grid item s={8} xs={12}>
-                    <CardContent>
-                    <Typography>Ayush Rawat</Typography>
-                    <Typography>Software Engineer</Typography>
-                    <Typography>rawatayush007@gmail.com</Typography>
-                    </CardContent> 
-                  </Grid> 
-                  <Grid item xs={12}>
-                    <Button variant="contained" size="small" color="primary" >
-                      Add to List
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            
-            <Grid item s={6} xs={6}>
-              <Card>
-                <Grid container s={12} xs={12} style={{justifyContent:'center'}}>
-                  <Grid item s={4} xs={12}>
-                    <img src={SP} width="100%" height="100%" />
-                  </Grid>
-                  <Grid item s={8} xs={12}>
-                    <CardContent>
-                    <Typography>Mukesh Kumar</Typography>
-                    <Typography>Software Engineer</Typography>
-                    <Typography>mukeshKumar@gmail.com</Typography>
-                    </CardContent> 
-                  </Grid> 
-                  <Grid item xs={12}>
-                    <Button variant="contained" size="small" color="primary" >
-                      Add to List
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-
-            <Grid item s={6} xs={6}>
-              <Card>
-                <Grid container s={12} xs={12}>
-                  <Grid item s={4} xs={12}>
-                    <img src={SP} width="100%" height="100%" />
-                  </Grid>
-                  <Grid item s={8} xs={12}>
-                    <CardContent>
-                    <Typography>Karan</Typography>
-                    <Typography>Android Developer</Typography>
-                    <Typography>karan123@gmail.com</Typography>
-                    </CardContent> 
-                  </Grid> 
-                  <Grid item xs={12}>
-                    <Button variant="contained" size="small" color="primary" >
-                      Add to List
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            
-
-
+              {props.organizationUsers.map(
+                (user)=>{
+                  return(
+                    <Grid item s={6} xs={6}>
+                      <Card>
+                        <Grid container s={12} xs={12}>
+                          <Grid item s={4} xs={12}>
+                            <img src={SP} width="100%" height="100%" />
+                          </Grid>
+                          <Grid item s={8} xs={12}>
+                            <CardContent>
+                            <Typography>{user.UserName}</Typography>
+                            <Typography>{user.designation}</Typography>
+                            <Typography>{user.email}</Typography>
+                            </CardContent> 
+                          </Grid> 
+                          <Grid item xs={12}>
+                            <Button variant="contained" size="small" color="primary" >
+                              Add to List
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Card>
+                    </Grid>
+                  )
+                }
+              )}
           </Grid>
         </Grid>
 
@@ -189,3 +130,17 @@ export default function DirectMessageWindow(props) {
     </div>
   );
 }
+
+const mapStateToProps= state=>{
+  return{
+    organizationUsers:state.drawerAd.organizationUsers
+  }
+} 
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    getOrgUsersList: ()=>dispatch(actionCreators.getOrgUsersList())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DirectMessageWindow);

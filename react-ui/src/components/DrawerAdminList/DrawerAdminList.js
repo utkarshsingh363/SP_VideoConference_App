@@ -25,6 +25,7 @@ import RequestWindow from '../../components/RequestWindow/RequestWindow'
 import DMWindow from '../../components/DirectMessageWindow/DirectMessageWindow'
 import Backdrop from "../../components/Backdrop/Backdrop";
 import { red } from '@material-ui/core/colors';
+import * as actionCreators from '../../store/components/drawer_admin_reducer'
 
 
 
@@ -37,6 +38,17 @@ const useStyles = makeStyles(theme => ({
         // width:"50px"
     }
 }));
+
+const availabilityColor=(status)=>{
+  switch(status){
+    case 'online':
+      return 'green'
+    case 'busy':
+      return 'yellow'
+    default: 
+      return 'red'
+  }
+}
 
 
 function DrawerAdminList(props){
@@ -128,19 +140,7 @@ function DrawerAdminList(props){
             )
             }
             </List>
-
-
-{/* 
-        //     <List component="div" disablePadding>
-        //       <ListItem button className={classes.nested}>
-
-        //         <ListItemText primary="SabPaisa" />
-        //       </ListItem>
-        //       <ListItem button className={classes.nested}>
-
-        //         <ListItemText primary="SabLends" />
-        //       </ListItem>
-            </List> */}
+            
           </Collapse>
         </List>
    
@@ -175,16 +175,15 @@ function DrawerAdminList(props){
           </ListItem>
           <Collapse in={props.openAdminGroupTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Technology" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary='Product' />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary='Support' />
-              </ListItem>
-            </List>
+              {props.adminGroupList.map(
+                (listItem)=>(
+                    <ListItem button className={classes.nested}>
+                      <ListItemText primary={listItem.AdminGroupName} />
+                    </ListItem>
+                )
+              )
+              }
+              </List>
             </Collapse>
           </List>
 
@@ -218,16 +217,15 @@ function DrawerAdminList(props){
 
           <Collapse in={props.openPrivateGroupTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Task Force: Sabmeets" />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary='Tech Team Daily Repts' />
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary='Masha AI' />
-              </ListItem>
-            </List>
+                {props.privateGroupList.map(
+                  (listItem)=>(
+                      <ListItem button className={classes.nested}>
+                        <ListItemText primary={listItem.PrivateGroupName} />
+                      </ListItem>
+                  )
+                )
+                }
+                </List>
             </Collapse>
           </List>
 
@@ -255,69 +253,33 @@ function DrawerAdminList(props){
           </ListItem>
           <Collapse in={props.openDMTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "yellow" }} />
-                  </Grid>
-                  <Grid item xs={8}>
-                    <ListItemText primary="Ayush Rawat" />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "red" }} />
-                  </Grid>
-                  <Grid item xs={8}>
-                    <ListItemText primary="Ramya Jena" />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "green" }} />
-                  </Grid>
-                  <Grid item xs={8}>
-                    <ListItemText primary="Shreyansh" />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
+              {props.organizationUsers.map(
+                (user)=>{
+                  return(
+                    <ListItem button className={classes.nested}>
+                      <Grid
+                        container
+                        xs={12}
+                        justify="space-around"
+                        style={{ alignItems: "center", textAlign: "center" }}
+                      >
+                        <Grid item xs={2}>
+                          <Avatar className={classes.small} />
+                        </Grid>
+                        <Grid item xs={1}>
+                          <FiberManualRecordIcon style={{ color: availabilityColor(user.availability) }} />
+                        </Grid>
+                        <Grid item xs={8}>
+                          <ListItemText primary={user.UserName} />
+                        </Grid>
+                        <Grid item xs={1}>
+                          <CloseIcon />
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                  )
+                }
+              )}
             </List>
           </Collapse>
         </List>
@@ -345,78 +307,33 @@ function DrawerAdminList(props){
           </ListItem>
           <Collapse in={props.openRequestTab} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "yellow" }} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <ListItemText primary="Mukesh" />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <CheckIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "red" }} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <ListItemText primary="Karan" />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <CheckIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Grid
-                  container
-                  xs={12}
-                  justify="space-around"
-                  style={{ alignItems: "center", textAlign: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <Avatar className={classes.small} />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <FiberManualRecordIcon style={{ color: "green" }} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <ListItemText primary="Vishal" />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <CheckIcon />
-                  </Grid>
-                  <Grid item xs={1}>
-                    <CloseIcon />
-                  </Grid>
-                </Grid>
-              </ListItem>
+              {props.requestedUsers.map(
+                (user)=>{
+                  return(
+                    <ListItem button className={classes.nested}>
+                      <Grid
+                        container
+                        xs={12}
+                        justify="space-around"
+                        style={{ alignItems: "center", textAlign: "center" }}
+                      >
+                        <Grid item xs={2}>
+                          <Avatar className={classes.small} />
+                        </Grid>
+                        <Grid item xs={7}>
+                          <ListItemText primary={user.UserName} />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <CheckIcon />
+                        </Grid>
+                        <Grid item xs={1}>
+                          <CloseIcon />
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                  )
+                }
+              )}
             </List>
           </Collapse>
         </List>
@@ -438,30 +355,38 @@ const mapStateToProps= state=>{
     openRequestTab: state.drawerAd.openRequestTab,
     openAdminGroupTab: state.drawerAd.openAdminGroupTab,
     openPrivateGroupTab: state.drawerAd.openPrivateGroupTab,
-    organizationList:state.drawerAd.organizationList
+    organizationList:state.drawerAd.organizationList,
+    adminGroupList:state.drawerAd.adminGroupList,
+    privateGroupList:state.drawerAd.privateGroupList,
+    organizationUsers:state.drawerAd.organizationUsers,
+    requestedUsers:state.drawerAd.requestedUsers
   }
 }
 
 const mapDispatchToProps = dispatch =>{
   return{
-    profileWindowOpen: ()=>dispatch({type:'OPEN_PROFILE_WINDOW'}),
-    profileWindowClose: ()=>dispatch({type:'CLOSE_PROFILE_WINDOW'}),
-    requestWindowOpen: ()=>dispatch({type:'OPEN_REQUEST_WINDOW'}),
-    requestWindowClose: ()=>dispatch({type:'CLOSE_REQUEST_WINDOW'}),
-    organizationWindowOpen: ()=>dispatch({type:'OPEN_ORGANIZATION_WINDOW'}),
-    organizationWindowClose: ()=>dispatch({type:'CLOSE_ORGANIZATION_WINDOW'}),
-    dmWindowOpen: ()=>dispatch({type:'OPEN_DM_WINDOW'}),
-    dmWindowClose: ()=>dispatch({type:'CLOSE_DM_WINDOW'}),
-    subgroupWindowOpen: ()=>dispatch({type:'OPEN_SUBGROUP_WINDOW'}),
-    subgroupWindowClose: ()=>dispatch({type:'CLOSE_SUBGROUP_WINDOW'}),
-    handleOrganizationTab: ()=>dispatch({type:'HANDLE_ORGANIZATION_TAB'}),
-    handleSubgroupTab: ()=>dispatch({type:'HANDLE_SUBGROUP_TAB'}),
-    handleDMTab: ()=>dispatch({type:'HANDLE_DM_TAB'}),
-    handleProfileTab: ()=>dispatch({type:'HANDLE_PROFILE_TAB'}),
-    handleRequestTab: ()=>dispatch({type:'HANDLE_REQUEST_TAB'}),
-    handleAdminGrouptTab: ()=>dispatch({type:'HANDLE_ADMINGROUP_TAB'}),
-    handlePrivateGroupTab: ()=>dispatch({type:'HANDLE_PRIVATEGROUP_TAB'}),
-    getOrganizationList: ()=>dispatch({type:'GET_ORGANISATION_LIST'})
+    profileWindowOpen: ()=>dispatch(actionCreators.profileWindowOpen()),
+    profileWindowClose: ()=>dispatch(actionCreators.profileWindowClose()),
+    requestWindowOpen: ()=>dispatch(actionCreators.requestWindowOpen()),
+    requestWindowClose: ()=>dispatch(actionCreators.requestWindowClose()),
+    organizationWindowOpen: ()=>dispatch(actionCreators.organizationWindowOpen()),
+    organizationWindowClose: ()=>dispatch(actionCreators.organizationWindowClose()),
+    dmWindowOpen: ()=>dispatch(actionCreators.dmWindowOpen()),
+    dmWindowClose: ()=>dispatch(actionCreators.dmWindowClose()),
+    subgroupWindowOpen: ()=>dispatch(actionCreators.subgroupWindowOpen()),
+    subgroupWindowClose: ()=>dispatch(actionCreators.subgroupWindowClose()),
+    handleOrganizationTab: ()=>dispatch(actionCreators.handleOrganizationTab()),
+    handleSubgroupTab: ()=>dispatch(actionCreators.handleSubgroupTab()),
+    handleDMTab: ()=>dispatch(actionCreators.handleDMTab()),
+    handleProfileTab: ()=>dispatch(actionCreators.handleProfileTab()),
+    handleRequestTab: ()=>dispatch(actionCreators.handleRequestTab()),
+    handleAdminGrouptTab: ()=>dispatch(actionCreators.handleAdminGrouptTab()),
+    handlePrivateGroupTab: ()=>dispatch(actionCreators.handlePrivateGroupTab()),
+    getOrganizationList: ()=>dispatch(actionCreators.getOrganizationList()),
+    getAdminGroupList: ()=>dispatch(actionCreators.getAdminGroupList()),
+    getPrivateGroupList: ()=>dispatch(actionCreators.getPrivateGroupList()),
+    getOrgUsersList: ()=>dispatch(actionCreators.getOrgUsersList()),
+    getRequestedUsersList: ()=>dispatch(actionCreators.getRequestedUsersList())
   }
 }
 
