@@ -1,6 +1,4 @@
-
-import React,{useState,useEffect} from "react";
-
+import React,{useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,7 +22,6 @@ import SwipeableViews from "react-swipeable-views";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-<<<<<<< HEAD
 
 
 import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
@@ -41,40 +38,8 @@ function Copyright() {
     </Typography>
   );
 }
-=======
-import axios from 'axios'
-
-import SabMeetsLogo from "../../static/img/sabmeets.jpeg";
-
-import SabpaisaCopyRight from '../../components/SabPaisaCopyRight/SabPaisaCopyRight'
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { connect, useDispatch } from "react-redux";
-
-import { auth } from "../../store/auth";
-
-
-// Added SabpaisaCopyRight Component 
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
->>>>>>> 279d5030f8d61c2664762ef010dfc1b2f2e8063a
 
 // **************************************************************************************************
-
-
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -137,12 +102,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-<<<<<<< HEAD
 toast.configure()
 function FullWidthTabs() {
-=======
-function FullWidthTabs(props) {
->>>>>>> 279d5030f8d61c2664762ef010dfc1b2f2e8063a
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -152,17 +113,13 @@ function FullWidthTabs(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
-    
   };
 
   const handleChangeIndex = index => {
-    setValue(index);
-    console.log(index);
-  
+    setValue(value);
+    // console.log(index);
   };
 
-<<<<<<< HEAD
   const notify = (message) => {
     toast(message,{position:toast.POSITION.TOP_CENTER})
   };  
@@ -186,26 +143,11 @@ function FullWidthTabs(props) {
       })
       .catch((error)=> console.log(error));
     
-=======
-  const onClickLoginButton=()=>{
-       // console.log(mobile);
-       const data = {
-        mobileNumber: String(mobile),
-        password: String(password),
-      };
-      console.log("yo", data);
-      console.log(props.auth)
-      props.auth(data);
-      // props.increment();
-
->>>>>>> 279d5030f8d61c2664762ef010dfc1b2f2e8063a
   }
-
 
 
   return (
     <div className={classes.root}>
-      <ToastContainer />
       {/* <AppBar position="static" color="default"> */}
       <Tabs
         value={value}
@@ -222,11 +164,8 @@ function FullWidthTabs(props) {
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
-        // onChangeIndex={handleChangeIndex}
+        onChangeIndex={handleChangeIndex}
       >
-       
-        {/*Tab for organization*/}
-
         <TabPanel value={value} index={0} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -262,9 +201,7 @@ function FullWidthTabs(props) {
               fullWidth
               variant="contained"
               color="primary"
-
-              // className={classes.submit}
-
+              className={classes.submit}
               onClick={onClickLoginButton}
             >
               Login
@@ -283,12 +220,9 @@ function FullWidthTabs(props) {
             </Grid>
           </form>
           <Box mt={8}>
-            <SabpaisaCopyRight />
+            <Copyright />
           </Box>
         </TabPanel>
-        
-         {/*Tab for individual*/}
-
         <TabPanel value={value} index={1} dir={theme.direction}>
           <form className={classes.form} noValidate>
             <TextField
@@ -331,69 +265,8 @@ function FullWidthTabs(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-<<<<<<< HEAD
                 <Link href="/forgotpassword" variant="body2">
                 {/* onClick={forgotPasswordWindowOpen} */}
-=======
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-          <Box mt={8}>
-            <SabpaisaCopyRight />
-          </Box>
-        </TabPanel>
-        
-        {/*Tab for guests*/}
-        
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="phone"
-              label="Mobile No"
-              name="phone"
-              autoComplete="phone"
-              autoFocus
-            />
-            {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            /> */}
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Continue
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
->>>>>>> 279d5030f8d61c2664762ef010dfc1b2f2e8063a
                   Forgot password?
                 </Link>
               </Grid>
@@ -405,10 +278,9 @@ function FullWidthTabs(props) {
             </Grid>
           </form>
           <Box mt={8}>
-            <SabpaisaCopyRight />
+            <Copyright />
           </Box>
         </TabPanel>
-     
       </SwipeableViews>
     </div>
   );
@@ -416,21 +288,12 @@ function FullWidthTabs(props) {
 
 // **************************************************************************************************
 
-*****************************************************************************************
-
-
- function SignUp(props) {
-
+export default function SignUp(props) {
   const classes = useStyles();
-  
 
-    return (
-    
+  return (
     <Container component="main" maxWidth="xs">
-      {/* {console.log("this is the props", props)} */}
       <CssBaseline />
-      {(props.currentUser.currentUser)?props.history.replace("/"):""}
-     
       <div className={classes.paper}>
         <div>
           <img src={SabMeetsLogo} width="100" height="100" />
@@ -438,29 +301,8 @@ function FullWidthTabs(props) {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-
-        <FullWidthTabs {...props} />
+        <FullWidthTabs />
       </div>
     </Container>
   );
 }
-
-const mapStateToProps = (state) => {
-  console.log(state.auth.auth)
-  return {
-    currentUser: state.auth.auth,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    auth: (data) => {
-      dispatch(auth(data));
-    },
-  };
-};
-
-
-//state.entities.bugs.list
-
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp)

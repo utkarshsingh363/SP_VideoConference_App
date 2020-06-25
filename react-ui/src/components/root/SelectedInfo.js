@@ -50,7 +50,7 @@ function SelectedGroupOrPersonInfo(props) {
         <Grid item xs={4}>
           <div className={classes.groupActionsButton}>
             <VideocamRoundedIcon />
-            <InfoRoundedIcon onClick={props.onClickInfoButton} />
+            <InfoRoundedIcon />
           </div>
         </Grid>
       </Grid>

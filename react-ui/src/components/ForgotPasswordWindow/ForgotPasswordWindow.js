@@ -171,7 +171,7 @@ function ForgotPasswordForm(){
           }else{
             console.log("Wrong Otp")
             return(
-              notify(response.data.msg,". Please Enter the correct OTP")
+              notify(response.data.msg,". Wrong Otp")
             )
           }
           // goToVerification()
